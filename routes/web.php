@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Trucks;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,14 @@ Route::middleware([
     Route::get('/test', function () {
         return view('test');
     })->name('test');
+    Route::get('/default', function () {
+        return view('default');
+    })->name('default');
+    Route::get('/forms', function () {
+        return view('form-elements');
+    })->name('forms');
+   
+
+    Route::get('trucks', Trucks::class)->name('trucks');
+
 });
