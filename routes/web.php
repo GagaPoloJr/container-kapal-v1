@@ -4,6 +4,8 @@ use App\Livewire\Customers;
 use App\Livewire\Roles;
 use App\Livewire\Settings;
 use App\Livewire\Trucks;
+use App\Livewire\Users;
+use App\Livewire\Users\UserUpdate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,13 +42,18 @@ Route::middleware([
     })->name('forms');
 
 
-    Route::get('trucks', Trucks::class)->name('trucks');
-    Route::get('customers', Customers::class)->name('customers');
-    Route::get('/settings', Settings::class)->name('settings.index');
+   
+    Route::prefix('master')->group(function () {
+        Route::get('trucks', Trucks::class)->name('trucks');
+        Route::get('customers', Customers::class)->name('customers');
+        Route::get('users', Users::class)->name('users');
+        Route::get('users/{id}/edit', UserUpdate::class)->name('users.edit');
+        Route::get('/settings', Settings::class)->name('settings.index');
 
-    Route::get('roles', Roles::class)->name('roles');
-    Route::get('roles/{role}/access', [Roles::class, 'access'])->name('roles.access');
-    Route::post('roles/{role}/store-permissions', [Roles::class, 'store_permissions'])->name('roles.store-permissions');
+        Route::get('roles', Roles::class)->name('roles');
+        Route::get('roles/{role}/access', [Roles::class, 'access'])->name('roles.access');
+        Route::post('roles/{role}/store-permissions', [Roles::class, 'store_permissions'])->name('roles.store-permissions');
+    });
 
 
 });

@@ -19,7 +19,7 @@
                             </div>
                         </div>
                         @if (isset($actions))
-                        <div class="mt-3 d-flex justify-content-start card-footer">
+                        <div class="mt-3 d-flex justify-content-start align-items-center card-footer">
                             {{ $actions }}
                         </div>
                         @endif

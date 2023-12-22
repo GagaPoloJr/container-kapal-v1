@@ -51,14 +51,14 @@ class Navbar extends Component
             ],
             ['route' => 'dashboard', 'label' => 'Invoice', 'isHasChild' => false],
             [
-                'route' => 'dashboard',
+                'route' => 'master',
                 'label' => 'Master',
                 'isHasChild' => true,
                 'children' => [
                     ['route' => 'customers', 'label' => 'Pelanggan'],
                     ['route' => 'trucks', 'label' => 'Truk'],
                     ['route' => 'settings.index', 'label' => 'Pengaturan'],
-                    ['route' => 'dashboard', 'label' => 'Pengguna / Karyawan'],
+                    ['route' => 'users', 'label' => 'Pengguna / Karyawan'],
 
                 ],
             ],

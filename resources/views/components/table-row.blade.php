@@ -1,4 +1,4 @@
-@props(['item', 'key', 'page', 'perPage', 'columns', 'isModalEdit' => false, 'isCustomButton' => false])
+@props(['item', 'key', 'page', 'perPage', 'columns', 'isModalEdit' => false, 'isCustomButton' => false, 'routeWeb'=> null])
 
 <tr wire:key="{{ $item->id . $page }}">
     <td class="">{{ ++$key + $perPage * ($page - 1) }}.</td>
@@ -18,7 +18,7 @@
                 <x-heroicon-s-pencil class="w-4 h-4 p-1 text-bg-yellow" />
             </button>
             @else
-            <a href="{{ route('resi.edit', $item->id) }}" class="">
+            <a href="{{ route($routeWeb, $item->id) }}" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
                 <x-heroicon-s-pencil class="w-4 h-4 p-1 text-bg-yellow" />
             </a>
             @endif
