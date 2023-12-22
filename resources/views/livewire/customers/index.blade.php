@@ -1,13 +1,13 @@
 <div>
     <x-innerpage-layout>
-        @section('title', 'Trucks')
+        @section('title', 'Customers')
         <x-slot name="header">
             <x-slot name="title">
-                {{ __('Trucks') }}
+                {{ __('Customers') }}
             </x-slot>
 
             <x-slot name="subtitle">
-                {{ __('Manage All Trucks.') }}
+                {{ __('Manage All Customers.') }}
             </x-slot>
             <x-slot name="action">
                 {{-- modal action --}}
@@ -20,9 +20,9 @@
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
                     </svg>
-                    Create new Truck
+                    Create new customer
                 </button>
-                <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
+                <button wire:click="confirmCreate" wire:loading.attr="disabled" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                     data-bs-target="#modal-report" aria-label="Create new report">
                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -32,19 +32,19 @@
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
                     </svg>
-                </a>
+                </button>
             </x-slot>
         </x-slot>
 
 
-        @include('livewire.trucks.create')
-        @include('livewire.trucks.delete')
+        @include('livewire.customers.create')
+        @include('livewire.customers.delete')
         <div class="row row-cards">
             <div class="col-12">
-                <x-table  :columns="$columns" :page="$page" :perPage="$perPage" :items="$trucks" :sortColumn="$sortColumn"
+                <x-table :columns="$columns" :page="$page" :perPage="$perPage" :items="$customers" :sortColumn="$sortColumn"
                     :sortDirection="$sortDirection" isModalEdit="true">
                     <x-slot name="title">
-                        {{ __('Trucks') }}
+                        {{ __('Customer') }}
                     </x-slot>
                 </x-table>
             </div>

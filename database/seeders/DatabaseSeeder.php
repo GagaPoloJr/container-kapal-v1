@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Customer;
 use App\Models\Truck;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Truck::factory()->count(1000)->create();
+        // Truck::factory()->count(1000)->create();
+        // Customer::factory()->count(1000)->create();
     }
 }

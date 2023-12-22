@@ -73,9 +73,9 @@
     <!-- Tabler Core -->
 
     @vite(['resources/js/tabler.min.js', 'resources/js/demo.min.js'])
-
     @livewireScripts
-
+    @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>

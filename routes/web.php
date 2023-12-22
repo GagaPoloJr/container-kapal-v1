@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Customers;
+use App\Livewire\Roles;
+use App\Livewire\Settings;
 use App\Livewire\Trucks;
 use Illuminate\Support\Facades\Route;
 
@@ -35,8 +38,15 @@ Route::middleware([
     Route::get('/forms', function () {
         return view('form-elements');
     })->name('forms');
-   
+
 
     Route::get('trucks', Trucks::class)->name('trucks');
+    Route::get('customers', Customers::class)->name('customers');
+    Route::get('/settings', Settings::class)->name('settings.index');
+
+    Route::get('roles', Roles::class)->name('roles');
+    Route::get('roles/{role}/access', [Roles::class, 'access'])->name('roles.access');
+    Route::post('roles/{role}/store-permissions', [Roles::class, 'store_permissions'])->name('roles.store-permissions');
+
 
 });
