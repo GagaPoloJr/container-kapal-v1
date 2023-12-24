@@ -284,7 +284,7 @@ class Roles extends Component
         $this->dispatch('notify', title: 'success', message: 'Success update access role permission');
         session()->flash('message', 'Success update access role permission');
         // Redirect back or perform other actions as needed
-        return redirect()->to('/roles');
+        return redirect()->to('/master/roles');
 
 
 

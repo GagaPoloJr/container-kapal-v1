@@ -174,7 +174,10 @@ class Users extends Component
     public function store()
     {
         $this->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|string',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8',
         ]);
 
         try {

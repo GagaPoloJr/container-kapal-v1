@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use App\Models\Truck;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'haikal@gmail.com',
+            'password' =>  Hash::make('12345678'),
+        ]);
 
-        // Truck::factory()->count(1000)->create();
-        // Customer::factory()->count(1000)->create();
+        \App\Models\Setting::factory()->create();
+
+        Truck::factory()->count(1000)->create();
+        Customer::factory()->count(1000)->create();
     }
 }

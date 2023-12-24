@@ -1,6 +1,9 @@
 <?php
 
 use App\Livewire\Customers;
+use App\Livewire\Resi\Resi;
+use App\Livewire\Resi\ResiPost;
+use App\Livewire\Resi\ResiUpdate;
 use App\Livewire\Roles;
 use App\Livewire\Settings;
 use App\Livewire\Trucks;
@@ -19,8 +22,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Route::middleware([
@@ -42,6 +49,12 @@ Route::middleware([
     })->name('forms');
 
 
+    Route::prefix('resi')->group(function () {
+        Route::get('', Resi::class)->name('resi');
+        Route::get('create', ResiPost::class)->name('resi.create');
+        Route::get('{id}/edit', ResiUpdate::class)->name('resi.edit');
+
+    });
    
     Route::prefix('master')->group(function () {
         Route::get('trucks', Trucks::class)->name('trucks');

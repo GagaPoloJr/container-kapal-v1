@@ -25,7 +25,7 @@ class Navbar extends Component
 
         $navbarData = [
             ['route' => 'dashboard', 'label' => 'Dashboard', 'isHasChild' => false],
-            ['route' => 'dashboard', 'label' => 'Pencatatan Resi', 'isHasChild' => false],
+            ['route' => 'resi', 'label' => 'Pencatatan Resi', 'isHasChild' => false],
             [
                 'route' => 'dashboard',
                 'label' => 'Pencatatan Bongkaran',
