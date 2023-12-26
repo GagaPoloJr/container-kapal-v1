@@ -49,7 +49,7 @@
                     $routesWeb= 'users.edit';
                 @endphp
               
-                <x-table  :columns="$columns" :page="$page" :perPage="$perPage" :items="$users" :sortColumn="$sortColumn" :sortDirection="$sortDirection" :routeWeb="$routesWeb">
+                <x-table  :columns="$columns" :page="$page" :perPage="$perPage" :items="$users" :sortColumn="$sortColumn" :sortDirection="$sortDirection" :routeEdit="$routesWeb">
                     <x-slot name="title">
                         {{ __('Users') }}
                     </x-slot>

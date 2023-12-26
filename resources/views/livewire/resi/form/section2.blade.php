@@ -1,18 +1,19 @@
 <div class="col-12">
-
-    @foreach ($formFields as $formField)
-    <div class=" row-cards">
+    @foreach ($formFields as $key => $formField)
+    <div class="mt-5 row-cards">
         <div class="col-12">
-            <div class="card">
+            <div class="position-relative card">
+                <div class="position-absolute right-0 top-0 z-index-99 p-2">
+                    <button title="remove container field" type="button" class="btn btn-danger" wire:click="removeFormField('{{ $formField['id'] }}')">
+                        <x-heroicon-s-trash class="w-4 h-4 p-1 btn-danger" />
+                    </button>
+                </div>
                 <div class="card-body">
                     <div class="card-title">
-                        Container {{$loop->index }}
+                        Container {{++$key }}
                     </div>
                     <div class="row">
-
                         <div class="col-12 row">
-                            <!-- Your form fields go here -->
-                            {{-- Form Field: {{ $formField['id'] }} --}}
                             <!-- no container -->
                             <div class="col-12 col-md-6">
                                 <x-form-label required='true' for="no_container" label="{{ __('Nomor Container') }}" :required="true" />
@@ -36,8 +37,6 @@
                                     @endforeach
                                 </select>
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.asal_barang" class="mt-2" />
-
-
                             </div>
                             <div>
                                 <div class="row-cards mt-5">
@@ -47,20 +46,25 @@
                                                 <div class="card-title">
                                                     Barang
                                                 </div>
-
                                                 @foreach ($barangFields[$formField['id']] as $index => $barangField)
-                                                <div class="col-span-12 md:col-span-2 mt-5">
-                                                    {{-- <!-- Your barang fields go here -->
-                                                    Barang Field: {{ $barangField['id'] }} --}}
-                                                    @include('livewire.resi.form.section3')
+                                                <div class="row align-items-center">
+                                                    <div class="col-10 mt-5">
+                                                        {{-- fields barang --}}
+                                                        @include('livewire.resi.form.section3')
+                                                    </div>
+
+                                                    <div class="col-2">
+                                                        <button type="button" class="btn btn-danger" wire:click="removeBarangField('{{ $formField['id'] }}', '{{ $barangField['id'] }}')">
+                                                            <x-heroicon-s-trash class="w-4 h-4 p-1 btn-danger" />
+                                                        </button>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-6">
-                                                    <button type="button" class="btn btn-danger" wire:click="removeBarangField('{{ $formField['id'] }}', '{{ $barangField['id'] }}')">Remove</button>
-                                                </div>
                                                 @endforeach
                                                 <div class="col-6 mt-5">
-                                                    <button type="button" class="btn btn-info" wire:click="addBarangField('{{ $formField['id'] }}')" wire:loading.attr="disabled">Add Barang</button>
+                                                    <button type="button" class="btn btn-info" wire:click="addBarangField('{{ $formField['id'] }}')" wire:loading.attr="disabled">
+                                                        <x-heroicon-s-plus class="w-4 h-4 p-1  btn-info" /> Barang
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,11 +82,11 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-end mb-4">
+    {{-- <div class="row justify-content-end mb-4">
         <div class="col-12">
             <button type="button" class="btn btn-danger" wire:click="removeFormField('{{ $formField['id'] }}')">Remove Container Field</button>
         </div>
-    </div>
+    </div> --}}
     @endforeach
     <div class="col-2 mt-5">
         <button type="button" class="btn btn-primary" wire:click="addFormField">Add Container Field</button>

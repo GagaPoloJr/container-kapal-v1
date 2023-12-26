@@ -15,4 +15,10 @@ class ResiModel extends Model
     public function scopeSearch($query, $value){
         $query->where("no_resi", "like", "%{$value}%");
     }
+
+
+    public function containers()
+    {
+        return $this->hasMany(Container::class, 'resi_id');
+    }
 }

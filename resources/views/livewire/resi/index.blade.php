@@ -45,9 +45,10 @@
             <div class="col-12">
                 @php
                 $routesWeb= 'resi.edit';
+                $routeView= 'resi.view';
                 @endphp
 
-                <x-table :columns="$columns" :page="$page" :perPage="$perPage" :items="$resi" :sortColumn="$sortColumn" :sortDirection="$sortDirection" :routeWeb="$routesWeb">
+                <x-table :columns="$columns" :page="$page" :perPage="$perPage" :items="$resi" :sortColumn="$sortColumn" :sortDirection="$sortDirection" :routeEdit="$routesWeb" :routeView="$routeView">
                     <x-slot name="title">
                         {{ __('Resi') }}
                     </x-slot>

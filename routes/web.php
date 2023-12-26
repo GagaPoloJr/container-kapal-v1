@@ -4,6 +4,7 @@ use App\Livewire\Customers;
 use App\Livewire\Resi\Resi;
 use App\Livewire\Resi\ResiPost;
 use App\Livewire\Resi\ResiUpdate;
+use App\Livewire\Resi\ResiView;
 use App\Livewire\Roles;
 use App\Livewire\Settings;
 use App\Livewire\Trucks;
@@ -53,6 +54,7 @@ Route::middleware([
         Route::get('', Resi::class)->name('resi');
         Route::get('create', ResiPost::class)->name('resi.create');
         Route::get('{id}/edit', ResiUpdate::class)->name('resi.edit');
+        Route::get('{id}/view', ResiView::class)->name('resi.view');
 
     });
    

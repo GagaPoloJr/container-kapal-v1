@@ -11,4 +11,10 @@ class Item extends Model
 
     protected $table = 'items';
     protected $guarded = [];
+
+
+    public function containers()
+    {
+        return $this->belongsTo(Container::class, 'container_id');
+    }
 }

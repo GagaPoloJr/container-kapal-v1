@@ -1,4 +1,4 @@
-@props(['item', 'key', 'page', 'perPage', 'columns', 'isModalEdit' => false, 'isCustomButton' => false, 'routeWeb'=> null])
+@props(['item', 'key', 'page', 'perPage', 'columns', 'isModalEdit' => false, 'isCustomButton' => false, 'routeEdit'=> null, 'routeView'=> null])
 
 <tr wire:key="{{ $item->id . $page }}">
     <td class="">{{ ++$key + $perPage * ($page - 1) }}.</td>
@@ -8,6 +8,11 @@
         {!! $this->customFormat($column['column'], $item->{$column['column']}) !!}
         @elseif ($column['column'] === 'action')
         <div class="flex gap-1 items-center justify-center">
+            @if(($routeView))
+            <a href="{{ route($routeView, $item->id) }}" class="flex btn px-1 py-1 rounded-md  text-bg-blue">
+                <x-heroicon-s-eye class="w-4 h-4 p-1 text-bg-blue" />
+            </a>
+            @endif
             @if(($isCustomButton))
             <a href="{{ route('roles.access', $item->id) }}" class="flex btn px-1 py-1 rounded-md  text-bg-blue">
                 <x-heroicon-s-key class="w-4 h-4 p-1 text-bg-blue" />
@@ -18,7 +23,7 @@
                 <x-heroicon-s-pencil class="w-4 h-4 p-1 text-bg-yellow" />
             </button>
             @else
-            <a href="{{ route($routeWeb, $item->id) }}" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
+            <a href="{{ route($routeEdit, $item->id) }}" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
                 <x-heroicon-s-pencil class="w-4 h-4 p-1 text-bg-yellow" />
             </a>
             @endif

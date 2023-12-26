@@ -7,7 +7,8 @@
     'sortDirection',
     'isModalEdit' => false,
     'isCustomButton' => false,
-    'routeWeb' => null
+    'routeEdit' => null,
+    'routeView' => null,
 ])
 
 <div class="card">
@@ -35,7 +36,7 @@
     <div class="table-responsive">
         <table class="table card-table table-vcenter text-nowrap datatable">
             <x-table-head :columns="$columns" :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
-            <x-table-body :isCustomButton="$isCustomButton" :isModalEdit="$isModalEdit" :routeWeb="$routeWeb" :items="$items" :columns="$columns" :page="$page"
+            <x-table-body :isCustomButton="$isCustomButton" :isModalEdit="$isModalEdit" :routeEdit="$routeEdit" :routeView="$routeView" :items="$items" :columns="$columns" :page="$page"
                 :perPage="$perPage" />
         </table>
     </div>

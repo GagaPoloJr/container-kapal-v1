@@ -7,6 +7,23 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+## Step to use repo
+- php 8.1 dan node versi >=18
+- npm install
+- composer require
+
+- php artisan key:generate
+- cp .env_example .env
+
+- php artisan migrate
+- php artisan db:seed
+- php artisan storage:link
+
+-npm run dev
+-php artisan serve
+
+- user & pw : haikal@gmail.com 12345678
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
