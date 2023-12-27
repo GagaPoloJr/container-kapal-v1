@@ -22,7 +22,7 @@
                     </svg>
                     Create new Truck
                 </button>
-                <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
+                <a type="button" wire:click="confirmCreate" wire:loading.attr="disabled" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                     data-bs-target="#modal-report" aria-label="Create new report">
                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
