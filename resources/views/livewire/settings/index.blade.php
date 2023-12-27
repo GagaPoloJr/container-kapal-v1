@@ -97,19 +97,19 @@
                     <x-slot name="form">
                         <!-- Name -->
                         <div class="col-span-6 sm:col-span-4">
-                            <x-form-label for="npwp" value="{{ __('NPWP') }}" />
+                            <x-form-label for="npwp" label="{{ __('NPWP') }}" />
                             <x-form-input name="a" id="npwp" type="text" class="mt-1 block w-full" wire:model="state.npwp" required autocomplete="npwp" />
                             <x-form-input-error for="state.npwp" class="mt-2" />
                         </div>
                         <!-- kode perusahaan -->
                         <div class="col-span-6 sm:col-span-4">
-                            <x-form-label for="no_rek_1" value="{{ __('Nomor Rekening Satu') }}" />
+                            <x-form-label for="no_rek_1" label="{{ __('Nomor Rekening Satu') }}" />
                             <x-form-input name="a" id="no_rek_1" type="text" class="mt-1 block w-full" wire:model="state.no_rek_1" required autocomplete="no_rek_1" />
                             <x-form-input-error for="state.no_rek_1" class="mt-2" />
                         </div>
 
                         <div class="col-span-6 sm:col-span-4">
-                            <x-form-label for="no_rek_2" value="{{ __('Nomor Rekening Dua') }}" />
+                            <x-form-label for="no_rek_2" label="{{ __('Nomor Rekening Dua') }}" />
                             <x-form-input name="a" id="no_rek_2" type="text" class="mt-1 block w-full" wire:model="state.no_rek_2" required autocomplete="no_rek_2" />
                             <x-form-input-error for="state.no_rek_2" class="mt-2" />
                         </div>
@@ -146,7 +146,7 @@
                                     Alpine.start();
                                 }
                             })" class="col-span-6 sm:col-span-4">
-                            <x-form-label for="ttd_kwitansi" value="{{ __('TTD Kwitansi') }}" />
+                            <x-form-label for="ttd_kwitansi" label="{{ __('TTD Kwitansi') }}" />
                             <x-form-input name="a" id="ttd_kwitansi" type="file" class="mt-1 block w-full" wire:model="state.ttd_kwitansi" wire:model.live="state.ttd_kwitansi" x-ref="state.ttd_kwitansi" x-on:change="
                                         photoName = $refs.ttd_kwitansi.files[0].name;
                                         const reader = new FileReader();
@@ -165,7 +165,7 @@
                         </div>
                         <!-- kode perusahaan -->
                         <div class="col-span-6 sm:col-span-4">
-                            <x-form-label for="ttd_resi" value="{{ __('TTD Resi') }}" />
+                            <x-form-label for="ttd_resi" label="{{ __('TTD Resi') }}" />
                             <x-form-input name="a" id="ttd_resi" type="file" class="mt-1 block w-full" wire:model="state.ttd_resi" autocomplete="ttd_resi" />
                             <div wire:loading wire:target="state.ttd_resi">Uploading...</div>
                             <x-form-input-error for="state.ttd_resi" class="mt-2" />

@@ -37,8 +37,8 @@ use Carbon\Carbon;
                                 <p class="h3">Company {{ $settings->nama_perusahaan }}</p>
                                 <address>
                                     {{ $settings->alamat }}<br>
-                                    State, City<br>
-                                    Region, Postal Code<br>
+                                    Surabaya<br>
+                                    {{-- Region, Postal Code<br> --}}
                                     {{ $settings->email }}
                                 </address>
                             </div>
