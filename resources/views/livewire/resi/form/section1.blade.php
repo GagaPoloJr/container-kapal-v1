@@ -21,7 +21,7 @@
         </div> --}}
 
         <!-- kode perusahaan -->
-        <div wire:ignore class="col-12 col-md-6 mt-2">
+        <div class="col-12 col-md-6 mt-2">
             <x-form-label required='true' for="nama_penerima" label="{{ __('Nama Penerima') }}" />
             <select  wire:model="nama_penerima" id="pelanggan" class="form-control form-select">
                 <option selected>Pilih Penerima</option>
@@ -70,7 +70,7 @@
             <x-form-input name="tgl_serah_barang" id="tgl_serah_barang" type="date" class="mt-1  block w-full" wire:model="tgl_serah_barang" autocomplete="tgl_serah_barang" />
             <x-form-input-error for="tgl_serah_barang" class="mt-2" />
         </div>
-        <div wire:ignore class="col-12 col-md-6">
+        <div  class="col-12 col-md-6">
             <x-form-label required='true' for="tipe_muatan" label="{{ __('Tipe Muatan') }}" />
             <select wire:model="tipe_muatan" id="tipe_muatan" wire:change="validateTipeMuatan" class="form-control form-select">
                 <option selected>Tipe Muatan</option>

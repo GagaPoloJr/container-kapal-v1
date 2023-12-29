@@ -60,7 +60,7 @@ class ResiPost extends Component
             'barangFields.*.*.attributes.nama_barang.required' => 'The Nama Barang field is required.',
             'barangFields.*.*.attributes.jml_barang.required' => 'The Jumlah Barang field is required.',
             'barangFields.*.*.attributes.satuan_barang.required' => 'The Satuan Barang field is required.',
-            'barangFields.*.*.attributes.kg.required' => 'The Kg field is required.',
+            // 'barangFields.*.*.attributes.kg.required' => 'The Kg field is required.',
             'barangFields.*.*.attributes.p.required' => 'The P field is required.',
             'barangFields.*.*.attributes.l.required' => 'The L field is required.',
             'barangFields.*.*.attributes.t.required' => 'The T field is required.',

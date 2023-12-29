@@ -29,7 +29,7 @@
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.no_seal" class="mt-2" />
                             </div>
 
-                            <div wire:ignore class="col-12 col-md-6">
+                            <div  class="col-12 col-md-6">
                                 <x-form-label required='true' for="asal_barang" label="{{ __('Nama Pengirim') }}" :required="true" />
                              
                                 <select wire:model="formFields.{{ $loop->index }}.attributes.asal_barang" id="formFields.{{ $loop->index }}.attributes.asal_barang" class="form-control form-select">

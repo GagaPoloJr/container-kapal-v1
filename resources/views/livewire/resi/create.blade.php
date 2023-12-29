@@ -40,7 +40,7 @@
 
         </div>
 
-        @push('scripts')
+        {{-- @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         @vite(['resources/css/select2.min.css','resources/js/select2.min.js'])
 
@@ -74,6 +74,6 @@
 
         </script>
       
-        @endpush
+        @endpush --}}
     </x-innerpage-layout>
 </div>
