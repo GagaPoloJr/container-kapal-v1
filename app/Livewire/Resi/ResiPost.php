@@ -10,7 +10,6 @@ use App\Models\Setting;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use PHPUnit\Framework\Constraint\IsNan;
 
 class ResiPost extends Component
 {
@@ -118,9 +117,9 @@ class ResiPost extends Component
             $jml_barang = (float) $this->barangFields[$formFieldId][$index]['attributes']['jml_barang'];
 
             // Check if conversion is successful before performing calculations
-            if (!is_nan($p) && !is_nan($l) && !is_nan($t)  && !is_nan($jml_barang)) {
+            if (!is_nan($p) && !is_nan($l) && !is_nan($t) && !is_nan($jml_barang)) {
                 // Calculate jumlah_kubikasi based on p, l, and t
-                $jumlahKubikasi = ($jml_barang * $p * $l * $t)/1000;
+                $jumlahKubikasi = ($jml_barang * $p * $l * $t) / 1000;
 
                 // Update the value in the Livewire data array
                 $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = $jumlahKubikasi;
@@ -196,7 +195,8 @@ class ResiPost extends Component
                         $p = $barangField['attributes']['p'];
                         $l = $barangField['attributes']['l'];
                         $t = $barangField['attributes']['t'];
-                        $jumlah_kubikasi = $p * $l * $t;
+                        $jumlah_barang = $barangField['attributes']['jml_barang'];
+                        $jumlah_kubikasi = ($p * $l * $t * $jumlah_barang) / 1000;
 
                         // Increment the total
                         $totalJumlahKubikasi += $jumlah_kubikasi;
