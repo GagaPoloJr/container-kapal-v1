@@ -44,7 +44,7 @@ return new class extends Migration
             $table->integer('p')->nullable();
             $table->integer('l')->nullable();
             $table->integer('t')->nullable();
-            $table->integer('jumlah_kubikasi')->nullable();
+            $table->decimal('jumlah_kubikasi', 10, 5)->nullable();
             $table->string('trip_ke')->nullable();
             $table->string('ttd_resi')->nullable();
             $table->timestamps();

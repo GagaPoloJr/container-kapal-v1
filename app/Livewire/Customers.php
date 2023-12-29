@@ -20,8 +20,8 @@ class Customers extends Component
     public $page = 1;
     public $perPage = 10;
     public $search = '';
-    public $sortDirection = 'ASC';
-    public $sortColumn = 'nama';
+    public $sortDirection = 'DESC';
+    public $sortColumn = 'created_at';
     public $confirmDeleteId;
 
 

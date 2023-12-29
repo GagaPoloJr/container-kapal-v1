@@ -21,9 +21,9 @@
         </div> --}}
 
         <!-- kode perusahaan -->
-        <div class="col-12 col-md-6 mt-2">
+        <div wire:ignore class="col-12 col-md-6 mt-2">
             <x-form-label required='true' for="nama_penerima" label="{{ __('Nama Penerima') }}" />
-            <select wire:model="nama_penerima" id="pelanggan" class="form-control form-select">
+            <select  wire:model="nama_penerima" id="pelanggan" class="form-control form-select">
                 <option selected>Pilih Penerima</option>
                 @foreach($customers as $key => $value)
                 <option value="{{ $value->id }}">{{ $value->nama }}</option>
@@ -34,9 +34,9 @@
 
         <!-- trip tujuan -->
         <div class="col-12 col-md-6 mt-2">
-            <x-form-label required='true' for="trip_ke" label="{{ __('Trip Tujuan') }}" />
-            <x-form-input name="trip_ke" id="trip_ke" type="text" class="mt-1  block w-full" wire:model="trip_ke" autocomplete="trip_ke" />
-            <x-form-input-error for="trip_ke" class="mt-2" />
+            <x-form-label required='true' for="trip_tujuan" label="{{ __('Trip Tujuan') }}" />
+            <x-form-input name="trip_tujuan" id="trip_tujuan" type="text" class="mt-1  block w-full" wire:model="trip_tujuan" autocomplete="trip_tujuan" />
+            <x-form-input-error for="trip_tujuan" class="mt-2" />
         </div>
 
         <!-- kota keberangkatan -->
@@ -70,9 +70,9 @@
             <x-form-input name="tgl_serah_barang" id="tgl_serah_barang" type="date" class="mt-1  block w-full" wire:model="tgl_serah_barang" autocomplete="tgl_serah_barang" />
             <x-form-input-error for="tgl_serah_barang" class="mt-2" />
         </div>
-        <div class="col-12 col-md-6">
+        <div wire:ignore class="col-12 col-md-6">
             <x-form-label required='true' for="tipe_muatan" label="{{ __('Tipe Muatan') }}" />
-            <select wire:model="tipe_muatan" id="tipe_muatan" class="form-control form-select">
+            <select wire:model="tipe_muatan" id="tipe_muatan" wire:change="validateTipeMuatan" class="form-control form-select">
                 <option selected>Tipe Muatan</option>
                 <option value="lcl">LCL</option>
                 <option value="fcl">FCL</option>

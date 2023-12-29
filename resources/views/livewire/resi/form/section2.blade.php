@@ -3,11 +3,13 @@
     <div class="mt-5 row-cards">
         <div class="col-12">
             <div class="position-relative card">
+                @if($key !== 0)
                 <div class="position-absolute right-0 top-0 z-index-99 p-2">
                     <button title="remove container field" type="button" class="btn btn-danger" wire:click="removeFormField('{{ $formField['id'] }}')">
                         <x-heroicon-s-trash class="w-4 h-4 p-1 btn-danger" />
                     </button>
                 </div>
+                @endif
                 <div class="card-body">
                     <div class="card-title">
                         Container {{++$key }}
@@ -27,11 +29,11 @@
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.no_seal" class="mt-2" />
                             </div>
 
-                            <div class="col-12 col-md-6">
+                            <div wire:ignore class="col-12 col-md-6">
                                 <x-form-label required='true' for="asal_barang" label="{{ __('Nama Pengirim') }}" :required="true" />
-                                {{-- <x-form-input name="formFields.{{ $loop->index }}.attributes.asal_barang" id="formFields.{{ $loop->index }}.attributes.asal_barang" type="text" class="mt-1 block w-full" wire:model="formFields.{{ $loop->index }}.attributes.asal_barang" autocomplete="asal_barang" /> --}}
+                             
                                 <select wire:model="formFields.{{ $loop->index }}.attributes.asal_barang" id="formFields.{{ $loop->index }}.attributes.asal_barang" class="form-control form-select">
-                                    <option selected>Pilih Pengirim</option>
+                                    <option value="" selected>Pilih Pengirim</option>
                                     @foreach($customers as $key => $value)
                                     <option value="{{ $value->id }}">{{ $value->nama }}</option>
                                     @endforeach
@@ -47,7 +49,7 @@
                                                     Barang
                                                 </div>
                                                 @foreach ($barangFields[$formField['id']] as $index => $barangField)
-                                                <div class="row align-items-center">
+                                                <div class="row align-items-center align-items-lg-end">
                                                     <div class="col-10 mt-5">
                                                         {{-- fields barang --}}
                                                         @include('livewire.resi.form.section3')
@@ -92,3 +94,21 @@
         <button type="button" class="btn btn-primary" wire:click="addFormField">Add Container Field</button>
     </div>
 </div>
+
+
+{{-- @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@vite(['resources/css/select2.min.css','resources/js/select2.min.js'])
+
+<script>
+    $(document).ready(function() {
+        $('.form-select').select2();
+        $('.form-select').on('change', function(e) {
+            var data = $('.form-select').select2("val");
+            @this.set('selected', data);
+        });
+    });
+
+</script>
+
+@endpush --}}

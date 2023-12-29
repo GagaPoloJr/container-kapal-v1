@@ -10,6 +10,7 @@ use App\Models\Setting;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use PHPUnit\Framework\Constraint\IsNan;
 
 class ResiPost extends Component
 {
@@ -19,25 +20,27 @@ class ResiPost extends Component
     public $customers, $setting;
 
     public $resi_id, $tipe_muatan, $no_resi, $nama_pengirim, $nama_penerima, $trip_tujuan, $kota_keberangkatan, $kota_tujuan, $tgl_berangkat, $tgl_serah_barang;
-    protected $rules = [
-        'formFields.*.attributes.no_container' => 'required',
-        'formFields.*.attributes.no_seal' => 'required',
-        'formFields.*.attributes.asal_barang' => 'required',
-        'barangFields.*.*.attributes.nama_barang' => 'required',
-        'barangFields.*.*.attributes.jml_barang' => 'required',
-        'barangFields.*.*.attributes.satuan_barang' => 'required',
-        'barangFields.*.*.attributes.kg' => 'required',
-        'barangFields.*.*.attributes.p' => 'required',
-        'barangFields.*.*.attributes.l' => 'required',
-        'barangFields.*.*.attributes.t' => 'required',
-        'barangFields.*.*.attributes.jumlah_kubikasi' => 'required',
-    ];
+    // protected $rules = [
+    //     'formFields.*.attributes.no_container' => 'required',
+    //     'formFields.*.attributes.no_seal' => 'required',
+    //     'formFields.*.attributes.asal_barang' => 'required',
+    //     'barangFields.*.*.attributes.nama_barang' => 'required',
+    //     'barangFields.*.*.attributes.jml_barang' => 'required',
+    //     'barangFields.*.*.attributes.satuan_barang' => 'required',
+    //     'barangFields.*.*.attributes.kg' => 'required',
+    //     'barangFields.*.*.attributes.p' => 'required',
+    //     'barangFields.*.*.attributes.l' => 'required',
+    //     'barangFields.*.*.attributes.t' => 'required',
+    //     'barangFields.*.*.attributes.jumlah_kubikasi' => 'required',
+    // ];
 
 
 
 
     public function mount()
     {
+
+        $this->addFormField();
 
         $this->customers = Customer::all();
         // Fetch and set the value of $setting
@@ -105,39 +108,61 @@ class ResiPost extends Component
             isset($this->barangFields[$formFieldId][$index]['attributes']['p']) &&
             isset($this->barangFields[$formFieldId][$index]['attributes']['l']) &&
             isset($this->barangFields[$formFieldId][$index]['attributes']['t'])
+            &&
+            isset($this->barangFields[$formFieldId][$index]['attributes']['jml_barang'])
         ) {
-            $p = $this->barangFields[$formFieldId][$index]['attributes']['p'];
-            $l = $this->barangFields[$formFieldId][$index]['attributes']['l'];
-            $t = $this->barangFields[$formFieldId][$index]['attributes']['t'];
-    
-            // Calculate jumlah_kubikasi based on p, l, and t
-            $jumlahKubikasi = $p * $l * $t;
-    
-            // Update the value in the Livewire data array
-            $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = $jumlahKubikasi;
+            // Convert values to float to ensure numeric calculations
+            $p = (float) $this->barangFields[$formFieldId][$index]['attributes']['p'];
+            $l = (float) $this->barangFields[$formFieldId][$index]['attributes']['l'];
+            $t = (float) $this->barangFields[$formFieldId][$index]['attributes']['t'];
+            $jml_barang = (float) $this->barangFields[$formFieldId][$index]['attributes']['jml_barang'];
+
+            // Check if conversion is successful before performing calculations
+            if (!is_nan($p) && !is_nan($l) && !is_nan($t)  && !is_nan($jml_barang)) {
+                // Calculate jumlah_kubikasi based on p, l, and t
+                $jumlahKubikasi = ($jml_barang * $p * $l * $t)/1000;
+
+                // Update the value in the Livewire data array
+                $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = $jumlahKubikasi;
+            }
         }
     }
-    
+
+
+
+    public function validateTipeMuatan()
+    {
+        $this->validate([
+            'tipe_muatan' => 'required', // Add your validation rules as needed
+        ]);
+    }
+
     public function store()
     {
-
+        $this->validate([
+            'no_resi' => 'required',
+            'nama_penerima' => 'required',
+            'trip_tujuan' => 'required',
+            'kota_keberangkatan' => 'required',
+            'kota_tujuan' => 'required',
+            'tgl_berangkat' => 'required',
+            'tgl_serah_barang' => 'required',
+            'tipe_muatan' => 'required',
+            'formFields.*.attributes.no_container' => 'required',
+            'formFields.*.attributes.no_seal' => 'required',
+            'formFields.*.attributes.asal_barang' => 'required',
+            'barangFields.*.*.attributes.nama_barang' => 'required',
+            'barangFields.*.*.attributes.jml_barang' => 'required',
+            'barangFields.*.*.attributes.satuan_barang' => 'required',
+            // 'barangFields.*.*.attributes.kg' => 'required',
+            'barangFields.*.*.attributes.p' => 'required',
+            'barangFields.*.*.attributes.l' => 'required',
+            'barangFields.*.*.attributes.t' => 'required',
+            'barangFields.*.*.attributes.jumlah_kubikasi' => 'required',
+            // Add more fields as needed
+        ]);
         try {
 
-
-            $this->validate([
-                'formFields.*.attributes.no_container' => 'required',
-                'formFields.*.attributes.no_seal' => 'required',
-                'formFields.*.attributes.asal_barang' => 'required',
-                'barangFields.*.*.attributes.nama_barang' => 'required',
-                'barangFields.*.*.attributes.jml_barang' => 'required',
-                'barangFields.*.*.attributes.satuan_barang' => 'required',
-                'barangFields.*.*.attributes.kg' => 'required',
-                'barangFields.*.*.attributes.p' => 'required',
-                'barangFields.*.*.attributes.l' => 'required',
-                'barangFields.*.*.attributes.t' => 'required',
-                'barangFields.*.*.attributes.jumlah_kubikasi' => 'required',
-                // Add more fields as needed
-            ]);
 
 
             $resi_data = [
@@ -199,7 +224,7 @@ class ResiPost extends Component
 
         } catch (ValidationException $e) {
             // Handle validation errors
-            $this->dispatch('notify', title: 'error', message: $e->validator->errors());
+            $this->dispatch('notify', title: 'error', message: 'An error occured. Please check all fields.');
             // You can access validation error messages using $e->errors()
         } catch (QueryException $e) {
             // Handle database query errors

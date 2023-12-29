@@ -33,29 +33,33 @@ use Carbon\Carbon;
                 <div class="card card-lg">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
-                                <p class="h3">Company {{ $settings->nama_perusahaan }}</p>
-                                <address>
-                                    {{ $settings->alamat }}<br>
-                                    Surabaya<br>
-                                    {{-- Region, Postal Code<br> --}}
-                                    {{ $settings->email }}
-                                </address>
+                            <div class="col-5">
+                                <p class="header-p">PT. PELAYARAN ALKES LINES</p>
+                                <p class="header-p">PT. EXPEDISI BINTANG TIMUR</p>
+                                <p class="header-p">JL. KEMAYORAN BARU 30 - (031) 3573062 HUNTING</p>
+                                <p class="header-p">SURABAYA</p>
+                              
                             </div>
-                            <div class="col-6 text-end">
-                                <p class="h3">Client {{ $customers->nama }}</p>
-                                <address>
+                            <div class="col-3 offset-4 text-start">
+                                <p class="header-p">KEPADA YTH </p>
+                                <p class="header-p text-uppercase"> {{ $customers->nama }}</p>
+                                <address class="text-uppercase">
                                     {!! $customers->alamat !!}<br>
-                                    {{ $customers->asal }}<br>
+                                    DI {{ $customers->asal }}<br>
 
-                                    {{ $customers->email }}
                                 </address>
+                                <H3>NO. {{ $resi->no_resi }}</H3>
                             </div>
                             <div class="col-12 my-5">
-                                <h1>Resi {{ $resi->no_resi }}</h1>
+                               
                             </div>
                         </div>
-                        <table class="table table-transparent table-responsive">
+                        <div class="text-muted">
+                            <p class="text-capitalize">Dengan hormat,</p>
+                            <p style="margin-bottom: unset">Bersama ini kami laporkan bahwa dengan TANTO SAKTI II berangkat pada tanggal {{ Carbon::parse($resi->created_at)->format('d/m/Y') }}</p>
+                            <p>Telah kami atur muat barang-barang sebagai berikut:</p>
+                        </div>
+                        <table class="table table-bordered table-responsive">
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
@@ -165,7 +169,18 @@ use Carbon\Carbon;
                                 <td class="font-weight-bold text-end">{{ $resi->jumlah_kubikasi }}</td>
                             </tr>
                         </table>
-                        <p class="text-muted text-center mt-5">Demikian Kami harap diterima dengan baik/cukup dan tidak lupa kami mengucapkan terimakasih atas kerjasamanya.</p>
+                        <p class="text-muted mt-5">Demikian Kami harap diterima dengan baik/cukup dan tidak lupa kami mengucapkan terimakasih atas kerjasamanya.</p>
+                        <div class="row">
+                            <div class="col-6">
+                                
+                            </div>
+                            <div class="col-6 text-muted text-end">
+                                <p class="text-end">Surabaya, {{ Carbon::parse($resi->created_at)->formatLocalized('%d %B %Y') }}</p>
+                                <p>Hormat Kami,</p>
+                                <br><br>
+                                <p>Fonny Sujatno</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

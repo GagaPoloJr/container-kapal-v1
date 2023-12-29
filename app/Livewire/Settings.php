@@ -41,11 +41,11 @@ class Settings extends Component
     public function validateProfileInformation()
     {
         return $this->validate([
-            'state.nama_perusahaan' => 'required|max:255',
-            'state.kode_perusahaan' => 'required|max:255',
+            'state.nama_perusahaan' => 'required|max:50',
+            'state.kode_perusahaan' => 'required|max:10',
             'state.email' => 'required|email|max:255',
             'state.lini_bisnis' => 'required|max:255',
-            'state.phone' => 'required|max:15',
+            'state.phone' => 'required|max:20',
             'state.fax' => 'required|max:15',
             'state.alamat' => 'required|max:255',
         ]);
