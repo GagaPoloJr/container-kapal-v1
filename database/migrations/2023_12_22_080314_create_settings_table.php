@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_perusahaan');
             $table->string('lini_bisnis');
             $table->string('email');
-            $table->string('phone', 16);
+            $table->string('phone', 21);
             $table->string('fax');
             $table->text('alamat');
             $table->string('npwp');
