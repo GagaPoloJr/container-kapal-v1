@@ -205,7 +205,7 @@ class ResiPost extends Component
                             'jml_barang' => $barangField['attributes']['jml_barang'],
                             'satuan_barang' => $barangField['attributes']['satuan_barang'],
                             'nama_barang' => $barangField['attributes']['nama_barang'],
-                            'kg' => $barangField['attributes']['kg'],
+                            'kg' => $barangField['attributes']['kg'] ?  $barangField['attributes']['kg'] : null,
                             'p' => $barangField['attributes']['p'],
                             'l' => $barangField['attributes']['l'],
                             't' => $barangField['attributes']['t'],
