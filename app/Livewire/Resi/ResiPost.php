@@ -161,9 +161,6 @@ class ResiPost extends Component
             // Add more fields as needed
         ]);
         try {
-
-
-
             $resi_data = [
                 'no_resi' => $this->no_resi,
                 'customer_id' => 1,
@@ -205,7 +202,7 @@ class ResiPost extends Component
                             'jml_barang' => $barangField['attributes']['jml_barang'],
                             'satuan_barang' => $barangField['attributes']['satuan_barang'],
                             'nama_barang' => $barangField['attributes']['nama_barang'],
-                            'kg' => $barangField['attributes']['kg'] ?  $barangField['attributes']['kg'] : null,
+                            'kg' => isset($barangField['attributes']['kg']) ? $barangField['attributes']['kg'] : null,
                             'p' => $barangField['attributes']['p'],
                             'l' => $barangField['attributes']['l'],
                             't' => $barangField['attributes']['t'],
