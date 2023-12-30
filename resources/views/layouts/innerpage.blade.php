@@ -29,13 +29,17 @@
         body {
             font-feature-settings: "cv03", "cv04", "cv11";
         }
+
     </style>
+
+    <!-- Styles -->
+    @livewireStyles
+
 
     @vite(['resources/js/demo-theme.min.js'])
     @vite(['resources/css/custom.css','resources/js/app.js'])
 
-    <!-- Styles -->
-    @livewireStyles
+
 </head>
 
 <body>
@@ -65,6 +69,7 @@
     </div>
 
     @stack('modals')
+    @livewireScripts
 
     <!-- Libs JS -->
     @vite(['resources/libs/apexcharts/dist/apexcharts.min.js', 'resources/libs/jsvectormap/dist/js/jsvectormap.min.js', 'resources/libs/jsvectormap/dist/maps/world.js', 'resources/libs/jsvectormap/dist/maps/world-merc.js'])
@@ -73,7 +78,8 @@
     <!-- Tabler Core -->
 
     @vite(['resources/js/tabler.min.js', 'resources/js/demo.min.js'])
-    @livewireScripts
+
+
     @yield('scripts')
     @stack('scripts')
 </body>

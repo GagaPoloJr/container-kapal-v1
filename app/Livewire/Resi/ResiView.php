@@ -16,14 +16,8 @@ class ResiView extends Component
         $this->resi = ResiModel::findOrFail($id);
         $this->containers = $this->resi->containers;
         $this->settings = Setting::findOrFail(1);
-        $this->customers =  Customer::findOrFail($this->resi->customer_id) ;
-        // dd($this->customers);
-        // dd($this->containers);
-        // $this->items = $this->containers->items;
-        // foreach ($this->containers as $container) {
-        //     $items = $container->items;
-        //     dd($items);  // This will display items related to each container
-        // }
+        $this->customers =  Customer::findOrFail($this->resi->nama_penerima) ;
+       
     }
     public function render()
     {

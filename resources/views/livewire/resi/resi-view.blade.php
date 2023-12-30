@@ -38,7 +38,7 @@ use Carbon\Carbon;
                                 <p class="header-p">PT. EXPEDISI BINTANG TIMUR</p>
                                 <p class="header-p">JL. KEMAYORAN BARU 30 - (031) 3573062 HUNTING</p>
                                 <p class="header-p">SURABAYA</p>
-                              
+
                             </div>
                             <div class="col-3 offset-4 text-start">
                                 <p class="header-p">KEPADA YTH </p>
@@ -51,7 +51,7 @@ use Carbon\Carbon;
                                 <H3>NO. {{ $resi->no_resi }}</H3>
                             </div>
                             <div class="col-12 my-5">
-                               
+
                             </div>
                         </div>
                         <div class="text-muted">
@@ -94,10 +94,10 @@ use Carbon\Carbon;
                                 <td>{{ $container->no_container }}</td>
                                 <td>{{ $container->no_seal }}</td>
                                 <td>{{ $items->kg }}</td>
-                                <td>{{ $items->p }}</td>
-                                <td>{{ $items->l }}</td>
-                                <td>{{ $items->t }}</td>
-                                <td class="font-weight-bold text-end">{{ $items->jumlah_kubikasi }}</td>
+                                <td>{{ number_format($items->p,2) }}</td>
+                                <td>{{ number_format($items->l,2) }}</td>
+                                <td>{{ number_format($items->t,2) }}</td>
+                                <td class="font-weight-bold text-end">{{ round($items->jumlah_kubikasi) }}</td>
                                 @endif
                                 @endforeach
                                 {{-- <td></td>
@@ -127,52 +127,16 @@ use Carbon\Carbon;
                             @endforeach
                             @endif
                             @endforeach
-                          
-                            {{-- <tr>
-                                <td class="text-center">2</td>
-                                <td>
-                                    <p class="strong mb-1">Online Store Design &amp; Development</p>
-                                    <div class="text-muted">Design/Development for all popular modern browsers</div>
-                                </td>
-                                <td class="text-center">
-                                    1
-                                </td>
-                                <td class="text-end">$20.000,00</td>
-                                <td class="text-end">$20.000,00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">3</td>
-                                <td>
-                                    <p class="strong mb-1">App Design</p>
-                                    <div class="text-muted">Promotional mobile application</div>
-                                </td>
-                                <td class="text-center">
-                                    1
-                                </td>
-                                <td class="text-end">$3.200,00</td>
-                                <td class="text-end">$3.200,00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" class="strong text-end">Subtotal</td>
-                                <td class="text-end">$25.000,00</td>
-                            </tr> --}}
-                            {{-- <tr>
-                                <td colspan="4" class="strong text-end">Vat Rate</td>
-                                <td class="text-end">20%</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" class="strong text-end">Vat Due</td>
-                                <td class="text-end">$5.000,00</td>
-                            </tr> --}}
+
                             <tr>
                                 <td colspan="11" class="font-weight-bold text-uppercase text-end">Total</td>
-                                <td class="font-weight-bold text-end">{{ $resi->jumlah_kubikasi }}</td>
+                                <td class="font-weight-bold text-end">{{ round($resi->jumlah_kubikasi)  }}</td>
                             </tr>
                         </table>
                         <p class="text-muted mt-5">Demikian Kami harap diterima dengan baik/cukup dan tidak lupa kami mengucapkan terimakasih atas kerjasamanya.</p>
                         <div class="row">
                             <div class="col-6">
-                                
+
                             </div>
                             <div class="col-6 text-muted text-end">
                                 <p class="text-end">Surabaya, {{ Carbon::parse($resi->created_at)->formatLocalized('%d %B %Y') }}</p>

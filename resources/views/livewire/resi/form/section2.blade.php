@@ -29,9 +29,8 @@
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.no_seal" class="mt-2" />
                             </div>
 
-                            <div  class="col-12 col-md-6">
+                            <div class="col-12 col-md-6">
                                 <x-form-label required='true' for="asal_barang" label="{{ __('Nama Pengirim') }}" :required="true" />
-                             
                                 <select wire:model="formFields.{{ $loop->index }}.attributes.asal_barang" id="formFields.{{ $loop->index }}.attributes.asal_barang" class="form-control form-select">
                                     <option value="" selected>Pilih Pengirim</option>
                                     @foreach($customers as $key => $value)
@@ -84,11 +83,7 @@
             </div>
         </div>
     </div>
-    {{-- <div class="row justify-content-end mb-4">
-        <div class="col-12">
-            <button type="button" class="btn btn-danger" wire:click="removeFormField('{{ $formField['id'] }}')">Remove Container Field</button>
-        </div>
-    </div> --}}
+
     @endforeach
     <div class="col-2 mt-5">
         <button type="button" class="btn btn-primary" wire:click="addFormField">Add Container Field</button>

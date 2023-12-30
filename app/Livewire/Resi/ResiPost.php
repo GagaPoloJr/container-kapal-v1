@@ -122,7 +122,7 @@ class ResiPost extends Component
                 $jumlahKubikasi = ($jml_barang * $p * $l * $t) / 1000;
 
                 // Update the value in the Livewire data array
-                $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = $jumlahKubikasi;
+                $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = round($jumlahKubikasi);
             }
         }
     }
@@ -193,7 +193,7 @@ class ResiPost extends Component
                         $l = $barangField['attributes']['l'];
                         $t = $barangField['attributes']['t'];
                         $jumlah_barang = $barangField['attributes']['jml_barang'];
-                        $jumlah_kubikasi = ($p * $l * $t * $jumlah_barang) / 1000;
+                        $jumlah_kubikasi = round(($p * $l * $t * $jumlah_barang) / 1000);
 
                         // Increment the total
                         $totalJumlahKubikasi += $jumlah_kubikasi;
@@ -226,7 +226,7 @@ class ResiPost extends Component
         } catch (QueryException $e) {
             // Handle database query errors
             // You can log the error or perform other actions
-            $this->dispatch('notify', title: 'error', message: 'An error occurred while saving the data.');
+            $this->dispatch('notify', title: 'error', message: $e . 'An error occurred while saving the data.');
 
         }
     }
