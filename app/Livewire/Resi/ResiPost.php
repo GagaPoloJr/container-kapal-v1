@@ -17,7 +17,7 @@ class ResiPost extends Component
     public $formFields = [];
     public $barangFields = [];
     public $customers, $setting;
-
+    public $selectedItem;
     public $resi_id, $tipe_muatan, $no_resi, $nama_pengirim, $nama_penerima, $trip_tujuan, $kota_keberangkatan, $kota_tujuan, $tgl_berangkat, $tgl_serah_barang;
     // protected $rules = [
     //     'formFields.*.attributes.no_container' => 'required',

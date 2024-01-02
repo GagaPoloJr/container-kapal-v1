@@ -23,12 +23,13 @@
         <!-- kode perusahaan -->
         <div class="col-12 col-md-6 mt-2">
             <x-form-label required='true' for="nama_penerima" label="{{ __('Nama Penerima') }}" />
-            <select  wire:model="nama_penerima" id="pelanggan" class="form-control form-select">
+            {{-- <select  wire:model="nama_penerima" id="pelanggan" class="form-control form-select">
                 <option selected>Pilih Penerima</option>
                 @foreach($customers as $key => $value)
                 <option value="{{ $value->id }}">{{ $value->nama }}</option>
                 @endforeach
-            </select>
+            </select> --}}
+            <livewire:select-dropdown-search placeholder="Nama Penerima" :options="$customers" :selectedItem="$selectedItem" />
             <x-form-input-error for="nama_penerima" class="mt-2" />
         </div>
 
