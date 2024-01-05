@@ -8,36 +8,25 @@
             <x-form-input-error for="no_resi" class="mt-2" />
         </div>
 
-        {{-- <!-- Name -->
-        <div class="col-12 col-md-6 mt-2">
-            <x-form-label required='true' for="nama_pengirim" label="{{ __('Nama Pengirim') }}" />
-            <select wire:model="nama_pengirim" id="nama_pengirim" class="form-control form-select">
-                <option selected>Pilih Pengirim</option>
-                @foreach($customers as $key => $value)
-                <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                @endforeach
-            </select>
-            <x-form-input-error for="nama_pengirim" class="mt-2" />
-        </div> --}}
+
 
         <!-- kode perusahaan -->
-        <div class="col-12 col-md-6 mt-2">
+        <div class="col-12 col-md-6 mt-2 position-relative">
             <x-form-label required='true' for="nama_penerima" label="{{ __('Nama Penerima') }}" />
-            {{-- <select  wire:model="nama_penerima" id="pelanggan" class="form-control form-select">
-                <option selected>Pilih Penerima</option>
-                @foreach($customers as $key => $value)
-                <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                @endforeach
-            </select> --}}
-            <livewire:select-dropdown-search placeholder="Nama Penerima" :options="$customers" :selectedItem="$selectedItem" />
+            <livewire:select-dropdown-search :value_id="$nama_penerima" modelValue="nama_penerima" wire:model="nama_penerima" searchAttribute="nama" placeholder="Nama Penerima" :options="$customers" :selectedItem="$selectedItem" />
             <x-form-input-error for="nama_penerima" class="mt-2" />
         </div>
 
         <!-- trip tujuan -->
-        <div class="col-12 col-md-6 mt-2">
-            <x-form-label required='true' for="trip_tujuan" label="{{ __('Trip Tujuan') }}" />
+        <div class="col-12 col-md-6  mt-2">
+            <x-form-label required='true' for="trip_tujuan" label="{{ __('Trip Ke Berapa') }}" />
             <x-form-input name="trip_tujuan" id="trip_tujuan" type="text" class="mt-1  block w-full" wire:model="trip_tujuan" autocomplete="trip_tujuan" />
             <x-form-input-error for="trip_tujuan" class="mt-2" />
+        </div>
+        <div class="col-12 col-md-6  mt-2">
+            <x-form-label required='true' for="kapal_muatan" label="{{ __('Kapal Muatan') }}" />
+            <x-form-input name="kapal_muatan" id="kapal_muatan" type="text" class="mt-1  block w-full" wire:model="kapal_muatan" autocomplete="kapal_muatan" />
+            <x-form-input-error for="kapal_muatan" class="mt-2" />
         </div>
 
         <!-- kota keberangkatan -->
@@ -66,18 +55,18 @@
             <x-form-input-error for="tgl_berangkat" class="mt-2" />
         </div>
         <!-- Name -->
-        <div class="col-12 col-md-6">
+        {{-- <div class="col-12 col-md-6">
             <x-form-label required='true' for="tgl_serah_barang" label="{{ __('Tanggal Serah Barang') }}" />
             <x-form-input name="tgl_serah_barang" id="tgl_serah_barang" type="date" class="mt-1  block w-full" wire:model="tgl_serah_barang" autocomplete="tgl_serah_barang" />
             <x-form-input-error for="tgl_serah_barang" class="mt-2" />
-        </div>
-        <div  class="col-12 col-md-6">
+        </div> --}}
+        <div class="col-12 col-md-6">
             <x-form-label required='true' for="tipe_muatan" label="{{ __('Tipe Muatan') }}" />
             <select wire:model="tipe_muatan" id="tipe_muatan" wire:change="validateTipeMuatan" class="form-control form-select">
                 <option selected>Tipe Muatan</option>
                 <option value="lcl">LCL</option>
                 <option value="fcl">FCL</option>
-               
+
             </select>
             <x-form-input-error for="tipe_muatan" class="mt-2" />
         </div>

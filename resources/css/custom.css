@@ -1,28 +1,29 @@
+/* * {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+} */
 [x-cloak] {
     display: none;
 }
 
-.modal{
+.modal {
     display: unset;
 }
 
-.right-0{
+.right-0 {
     right: 0;
 }
 
-.top-0{
+.top-0 {
     top: 0;
 }
 
-.z-index-99{
+.z-index-99 {
     z-index: 99;
 }
 
-.header-p{
+.header-p {
     margin-bottom: unset;
 }
-
-
 
 .select2-container--default .select2-selection--single {
     border: var(--tblr-border-width) solid var(--tblr-border-color) !important;
@@ -32,14 +33,84 @@
     height: 36px !important;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
     line-height: 36px !important;
 }
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
     height: 36px !important;
-
 }
 
-.select2.select2-container.select2-container--default{
+.select2.select2-container.select2-container--default {
     width: 100% !important;
 }
+
+.choices__inner {
+    background-color: unset !important;
+    border-radius: var(--tblr-border-radius) !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 4px 5px 3.75px !important;
+}
+
+/* .dropdown-select {
+    position: absolute;
+    z-index: 100;
+    cursor: pointer;
+    height: 200px;
+    overflow: auto;
+} */
+
+
+
+.btn-search{
+    background: #fff;
+    border: var(--tblr-border-width) solid var(--tblr-border-color);
+}
+
+
+.list-group{
+    background: #fff;
+}
+
+.card-wrapper{
+    
+    background: #fff;
+    padding: 10px;
+    /* border: 1px solid #b5b5b5; */
+    border: var(--tblr-border-width) solid var(--tblr-border-color);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    margin-top: -10px;
+    z-index: 50;
+    cursor: pointer;
+    height: auto;
+    width: 96%;
+    overflow: hidden;
+}
+
+.card-wrapper input{
+    margin-top: 10px;
+}
+
+.dropdown-select{
+    margin-top: 20px;
+    height: 200px;
+    overflow: auto;
+    user-select: none;
+}
+.list-group-item {
+    padding: unset;
+}
+.list-group-item span {
+    display: block;
+    padding: var(--tblr-list-group-item-padding-y) var(--tblr-list-group-item-padding-x);
+ }
+
+
+ .dropdown-select span.selected{
+    background-color: rgb(231, 244, 203);
+ }

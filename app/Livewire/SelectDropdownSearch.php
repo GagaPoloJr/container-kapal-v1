@@ -8,43 +8,73 @@ use Livewire\Component;
 class SelectDropdownSearch extends Component
 {
     public $i = 1;
-    public $suppliers, $options = [];
-
+    public $inputValue = '';
     public $inputSearch = '';
-    public $value_id;
-    public $placeholder;
+    public $value_id, $value;
 
-    public function selectOption($value_id)
+    public $modelValue;
+    public $placeholder;
+    public $options = [];
+
+    public $isSectionVisible, $isDropdownVisible = false;
+    public $selectedOption = null;
+    public $search = '';
+    public $searchAttribute = 'nama';
+
+    public $selectedItem;
+
+    public function toggleDropdown()
     {
-        $this->value_id = $value_id;
-        $this->inputSearch = '';
+        $this->isDropdownVisible = !$this->isDropdownVisible;
     }
 
-    public function mount($options= [], $placeholder=null)
+    public function selectOption($value_id, $nama)
+    {
+
+        $this->value_id = $value_id;
+        $this->resetCreateForm();
+        $this->toggleDropdown();
+        $this->value = $value_id;
+
+        $this->dispatch('selectOption', ['field' => $this->modelValue, 'value' => $this->value]);
+
+    }
+
+    public function mount($options = [], $placeholder = null, $modelValue, $value_id)
     {
         $this->options = $options;
         $this->placeholder = $placeholder;
+        $this->modelValue = $modelValue;
+        $this->value_id = $value_id;
+    }
+
+
+
+    private function resetCreateForm()
+    {
+        $this->inputSearch = '';
     }
 
     public function render()
     {
         $searchResults = [];
 
-        // if (strlen($this->inputSearch) > 0) {
-        //     $searchResults = Customer::where('nama', 'LIKE', '%' . $this->inputSearch . '%')
-        //         ->orWhere('kode', 'LIKE', '%' . $this->inputSearch . '%') 
-        //         ->get();
-        // }
+        if (strlen($this->inputSearch) > 0) {
+            $searchResults = array_filter($this->options->toArray(), function ($option) {
+                foreach ($option as $attribute) {
+                    if (stripos($option[$this->searchAttribute], $this->inputSearch) !== false) {
+                        return true;
+                    }
+                }
 
-        if(strlen($this->inputSearch) > 0){
-            $searchResults = array_filter($this->options, function($option, $attributes){
-                return stripos($option[$attributes], $this->inputSearch) !== false;
+                return false;
             });
-        dd($searchResults);
 
+        } else {
+            $searchResults = $this->options->toArray();
         }
 
-        return view('livewire.select-dropdown-search')->with(['searchsuppliers' => $searchResults]);
-
+        return view('livewire.select-dropdown-search')->with(['searchOptions' => $searchResults]);
     }
+
 }

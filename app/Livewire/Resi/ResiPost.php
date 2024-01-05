@@ -18,32 +18,40 @@ class ResiPost extends Component
     public $barangFields = [];
     public $customers, $setting;
     public $selectedItem;
-    public $resi_id, $tipe_muatan, $no_resi, $nama_pengirim, $nama_penerima, $trip_tujuan, $kota_keberangkatan, $kota_tujuan, $tgl_berangkat, $tgl_serah_barang;
-    // protected $rules = [
-    //     'formFields.*.attributes.no_container' => 'required',
-    //     'formFields.*.attributes.no_seal' => 'required',
-    //     'formFields.*.attributes.asal_barang' => 'required',
-    //     'barangFields.*.*.attributes.nama_barang' => 'required',
-    //     'barangFields.*.*.attributes.jml_barang' => 'required',
-    //     'barangFields.*.*.attributes.satuan_barang' => 'required',
-    //     'barangFields.*.*.attributes.kg' => 'required',
-    //     'barangFields.*.*.attributes.p' => 'required',
-    //     'barangFields.*.*.attributes.l' => 'required',
-    //     'barangFields.*.*.attributes.t' => 'required',
-    //     'barangFields.*.*.attributes.jumlah_kubikasi' => 'required',
-    // ];
+    public $modelValue;
+    public $resi_id, $tipe_muatan, $no_resi, $nama_pengirim, $nama_penerima, $trip_tujuan, $kota_keberangkatan, $kota_tujuan, $tgl_berangkat, $kapal_muatan;
+
+    protected $listeners = ['selectOption'];
+
+    public function selectOption($nama)
+    {
+        // Assuming $nama['field'] is something like "formFields.0.attributes.asal_barang"
+        $fieldSegments = explode('.', $nama['field']);
+        // Check if the expected structure is present
+        if (count($fieldSegments) === 4 && $fieldSegments[0] === 'formFields' && is_numeric($fieldSegments[1]) && $fieldSegments[2] === 'attributes') {
+            $index = (int) $fieldSegments[1];
+            $attributeName = $fieldSegments[3];
+
+            // Check if the index is within the array bounds
+            if (isset($this->formFields[$index])) {
+                // Set the value dynamically
+                $this->formFields[$index]['attributes'][$attributeName] = $nama['value'];
+            }
+        } else {
+            $this->{$nama['field']} = $nama['value'];
+
+        }
 
 
-
+    }
 
     public function mount()
     {
-
         $this->addFormField();
-
         $this->customers = Customer::all();
         // Fetch and set the value of $setting
         $this->setting = Setting::findOrFail(1);
+
     }
 
     public function render()
@@ -51,22 +59,41 @@ class ResiPost extends Component
         return view('livewire.resi.create');
     }
 
-    public function messages()
-    {
-        return [
-            'formFields.*.attributes.no_container.required' => 'The No Container field is required.',
-            'formFields.*.attributes.no_seal.required' => 'The No Seal field is required.',
-            'formFields.*.attributes.asal_barang.required' => 'The Asal Barang field is required.',
-            'barangFields.*.*.attributes.nama_barang.required' => 'The Nama Barang field is required.',
-            'barangFields.*.*.attributes.jml_barang.required' => 'The Jumlah Barang field is required.',
-            'barangFields.*.*.attributes.satuan_barang.required' => 'The Satuan Barang field is required.',
-            // 'barangFields.*.*.attributes.kg.required' => 'The Kg field is required.',
-            'barangFields.*.*.attributes.p.required' => 'The P field is required.',
-            'barangFields.*.*.attributes.l.required' => 'The L field is required.',
-            'barangFields.*.*.attributes.t.required' => 'The T field is required.',
-            'barangFields.*.*.attributes.jumlah_kubikasi.required' => 'The Jumlah Kubikasi field is required.',
-        ];
-    }
+
+    protected $validationAttributes = [
+        'trip_tujuan' => 'Trip ke berapa',
+        'formFields.*.attributes.no_container' => 'No Container',
+        'formFields.*.attributes.no_seal' => 'No Seal',
+        'formFields.*.attributes.asal_barang' => 'Nama Pengirim',
+        'formFields.*.attributes.tgl_serah_barang' => 'Tanggal Serah Barang',
+        'barangFields.*.*.attributes.nama_barang' => 'Nama Barang',
+        'barangFields.*.*.attributes.jml_barang' => 'Jumlah Barang',
+        'barangFields.*.*.attributes.satuan_barang' => 'Satuan Barang',
+        'barangFields.*.*.attributes.kg' => 'Kg',
+        'barangFields.*.*.attributes.p' => 'P',
+        'barangFields.*.*.attributes.l' => 'L',
+        'barangFields.*.*.attributes.t' => 'T',
+        'barangFields.*.*.attributes.jumlah_kubikasi' => 'Jumlah Kubikasi',
+    ];
+
+
+    // public function messages()
+    // {
+    //     return [
+    //         'formFields.*.attributes.no_container.required' => 'The No Container field is required.',
+    //         'formFields.*.attributes.no_seal.required' => 'The No Seal field is required.',
+    //         'formFields.*.attributes.asal_barang.required' => 'The Nama Pengirim field is required.',
+    //         'formFields.*.attributes.tgl_serah_barang.required' => 'The Tanggal Serah Barang field is required.',
+    //         'barangFields.*.*.attributes.nama_barang.required' => 'The Nama Barang field is required.',
+    //         'barangFields.*.*.attributes.jml_barang.required' => 'The Jumlah Barang field is required.',
+    //         'barangFields.*.*.attributes.satuan_barang.required' => 'The Satuan Barang field is required.',
+    //         // 'barangFields.*.*.attributes.kg.required' => 'The Kg field is required.',
+    //         'barangFields.*.*.attributes.p.required' => 'The P field is required.',
+    //         'barangFields.*.*.attributes.l.required' => 'The L field is required.',
+    //         'barangFields.*.*.attributes.t.required' => 'The T field is required.',
+    //         'barangFields.*.*.attributes.jumlah_kubikasi.required' => 'The Jumlah Kubikasi field is required.',
+    //     ];
+    // }
     // $formFields = [
     //     ['id' => 'some_id', 'attributes' => ['no_container' => 'value1', 'no_seal' => 'value2', 'asal_barang' => 'value3']],
     //     // ... other form fields
@@ -138,26 +165,28 @@ class ResiPost extends Component
 
     public function store()
     {
+        // dd($this);
         $this->validate([
             'no_resi' => 'required',
             'nama_penerima' => 'required',
             'trip_tujuan' => 'required',
             'kota_keberangkatan' => 'required',
             'kota_tujuan' => 'required',
+            'kapal_muatan' => 'required',
             'tgl_berangkat' => 'required',
-            'tgl_serah_barang' => 'required',
             'tipe_muatan' => 'required',
             'formFields.*.attributes.no_container' => 'required',
             'formFields.*.attributes.no_seal' => 'required',
             'formFields.*.attributes.asal_barang' => 'required',
+            'formFields.*.attributes.tgl_serah_barang' => 'required',
             'barangFields.*.*.attributes.nama_barang' => 'required',
-            'barangFields.*.*.attributes.jml_barang' => 'required',
+            'barangFields.*.*.attributes.jml_barang' => 'required|numeric',
             'barangFields.*.*.attributes.satuan_barang' => 'required',
             // 'barangFields.*.*.attributes.kg' => 'required',
-            'barangFields.*.*.attributes.p' => 'required',
-            'barangFields.*.*.attributes.l' => 'required',
-            'barangFields.*.*.attributes.t' => 'required',
-            'barangFields.*.*.attributes.jumlah_kubikasi' => 'required',
+            'barangFields.*.*.attributes.p' => 'required|numeric',
+            'barangFields.*.*.attributes.l' => 'required|numeric',
+            'barangFields.*.*.attributes.t' => 'required|numeric',
+            'barangFields.*.*.attributes.jumlah_kubikasi' => 'required|numeric',
             // Add more fields as needed
         ]);
         try {
@@ -166,13 +195,14 @@ class ResiPost extends Component
                 'customer_id' => 1,
                 'setting_id' => 1,
                 'tipe_muatan' => $this->tipe_muatan,
+                'kapal_muatan' => $this->kapal_muatan,
                 // 'nama_pengirim' => $this->nama_pengirim,
                 'nama_penerima' => $this->nama_penerima,
                 'trip_ke' => $this->trip_tujuan,
                 'kota_keberangkatan' => $this->kota_keberangkatan,
                 'kota_tujuan' => $this->kota_tujuan,
                 'tgl_berangkat' => $this->tgl_berangkat,
-                'tgl_serah_barang' => $this->tgl_serah_barang,
+
             ];
             $resi = ResiModel::updateOrCreate(['id' => $this->resi_id], $resi_data);
             $resiId = $resi->id;
@@ -184,6 +214,7 @@ class ResiPost extends Component
                     'no_container' => $formField['attributes']['no_container'],
                     'no_seal' => $formField['attributes']['no_seal'],
                     'asal_barang' => $formField['attributes']['asal_barang'],
+                    'tgl_serah_barang' => $formField['attributes']['tgl_serah_barang'],
                 ]);
 
                 if (isset($this->barangFields[$formField['id']])) {
@@ -235,7 +266,17 @@ class ResiPost extends Component
     public function addFormField()
     {
         $formFieldId = uniqid();
-        $this->formFields[] = ['id' => $formFieldId];
+        $this->formFields[] = [
+            'id' => $formFieldId,
+            'attributes' => [
+                'no_container' => '',
+                'no_seal' => '',
+                'asal_barang' => '',
+                'tgl_serah_barang' => '',
+
+            ],
+        ];
+
         $this->barangFields[$formFieldId] = []; // Initialize an empty array for barangFields
     }
 
@@ -298,5 +339,9 @@ class ResiPost extends Component
             }
         }
     }
+
+
+
+
 }
 

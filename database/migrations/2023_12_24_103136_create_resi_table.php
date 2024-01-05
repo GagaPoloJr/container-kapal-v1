@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('kota_keberangkatan');
             $table->string('nama_penerima')->nullable();
             $table->string('kota_tujuan')->nullable();
-            $table->integer('kapal_muatan')->nullable();
+            $table->string('kapal_muatan')->nullable();
             $table->date('tgl_berangkat')->nullable();
             $table->string('tipe_muatan')->nullable();
             $table->date('tgl_serah_barang')->nullable();

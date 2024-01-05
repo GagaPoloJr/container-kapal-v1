@@ -23,22 +23,25 @@
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.no_container" class="mt-2" />
                             </div>
 
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6 mt-2">
                                 <x-form-label required='true' for="no_seal" label="{{ __('Nomor Seal') }}" :required="true" />
                                 <x-form-input name="formFields.{{ $loop->index }}.attributes.no_seal" id="formFields.{{ $loop->index }}.attributes.no_seal" type="text" class="mt-1  block w-full" wire:model="formFields.{{ $loop->index }}.attributes.no_seal" autocomplete="no_seal" />
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.no_seal" class="mt-2" />
                             </div>
 
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6 position-relative">
                                 <x-form-label required='true' for="asal_barang" label="{{ __('Nama Pengirim') }}" :required="true" />
-                                <select wire:model="formFields.{{ $loop->index }}.attributes.asal_barang" id="formFields.{{ $loop->index }}.attributes.asal_barang" class="form-control form-select">
-                                    <option value="" selected>Pilih Pengirim</option>
-                                    @foreach($customers as $key => $value)
-                                    <option value="{{ $value->id }}">{{ $value->nama }}</option>
-                                    @endforeach
-                                </select>
+
+                                <livewire:select-dropdown-search :value_id="$formFields[$loop->index]['attributes']['asal_barang']" :wire:key="$loop->index" modelValue="formFields.{{ $loop->index }}.attributes.asal_barang" wire:model="formFields.{{ $loop->index }}.attributes.asal_barang" id="formFields.{{ $loop->index }}.attributes.asal_barang" searchAttribute="nama" placeholder="Nama Pengirim" :options="$customers" :selectedItem="$selectedItem" />
                                 <x-form-input-error for="formFields.{{ $loop->index }}.attributes.asal_barang" class="mt-2" />
                             </div>
+
+                            <div class="col-12 col-md-6 mt-2">
+                                <x-form-label required='true' for="tgl_serah_barang" label="{{ __('Tanggal Serah Barang') }}" :required="true" />
+                                <x-form-input name="formFields.{{ $loop->index }}.attributes.tgl_serah_barang" id="formFields.{{ $loop->index }}.attributes.tgl_serah_barang" type="date" class="mt-1  block w-full" wire:model="formFields.{{ $loop->index }}.attributes.tgl_serah_barang" autocomplete="tgl_serah_barang" />
+                                <x-form-input-error for="formFields.{{ $loop->index }}.attributes.tgl_serah_barang" class="mt-2" />
+                            </div>
+
                             <div>
                                 <div class="row-cards mt-5">
                                     <div class="col-12">

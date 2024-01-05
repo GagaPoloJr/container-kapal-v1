@@ -28,7 +28,7 @@
 
     <!-- trip tujuan -->
     <div class="col-span-12 md:col-span-2">
-        <x-form-label required='true' for="trip_ke" label="{{ __('Trip Tujuan') }}" />
+        <x-form-label required='true' for="trip_ke" label="{{ __('Trip Berapa') }}" />
         <x-form-input name="trip_ke" id="trip_ke" type="text" class="mt-1  block w-full" wire:model="trip_ke" autocomplete="trip_ke" />
         <x-form-input-error for="trip_ke" class="mt-2" />
     </div>

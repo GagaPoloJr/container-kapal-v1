@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('no_container');
             $table->string('no_seal');
             $table->string('asal_barang');
+            $table->string('tgl_serah_barang');
             $table->timestamps();
         });
     }

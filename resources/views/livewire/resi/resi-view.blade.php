@@ -4,7 +4,7 @@ use Carbon\Carbon;
 
 <div>
     <x-innerpage-layout>
-        @section('title', 'View Resi')
+        @section('title', 'View Resi' )
         <x-slot name="header">
             <x-slot name="title">
                 {{ __('View') }} {{ $resi->no_resi }}
@@ -56,7 +56,7 @@ use Carbon\Carbon;
                         </div>
                         <div class="text-muted">
                             <p class="text-capitalize">Dengan hormat,</p>
-                            <p style="margin-bottom: unset">Bersama ini kami laporkan bahwa dengan TANTO SAKTI II berangkat pada tanggal {{ Carbon::parse($resi->created_at)->format('d/m/Y') }}</p>
+                            <p style="margin-bottom: unset">Bersama ini kami laporkan bahwa dengan <b> {{ $resi->kapal_muatan }}</b> berangkat pada tanggal {{ Carbon::parse($resi->created_at)->format('d/m/Y') }}</p>
                             <p>Telah kami atur muat barang-barang sebagai berikut:</p>
                         </div>
                         <table class="table table-bordered table-responsive">
@@ -74,14 +74,12 @@ use Carbon\Carbon;
                                     <th>L</th>
                                     <th>T</th>
                                     <th>Jumlah</th>
-                                    {{-- <th class="text-center" style="width: 1%">Qnt</th>
-                                    <th class="text-end" style="width: 1%">Unit</th>
-                                    <th class="text-end" style="width: 1%">Amount</th> --}}
+                                 
                                 </tr>
                             </thead>
                             @foreach($containers as $key => $container)
                             <tr>
-                                <td>{{ Carbon::parse($container->created_at)->format('d-m-Y') }}</td>
+                                <td>{{ Carbon::parse($container->tgl_serah_barang)->format('d-m-Y') }}</td>
                                 <td>
                                     <p class="strong mb-1"> {{ $container->asal->nama }}</p>
                                     {{-- <div class="text-muted">Logo and business cards design</div> --}}

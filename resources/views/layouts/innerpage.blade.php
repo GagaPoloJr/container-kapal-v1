@@ -39,6 +39,7 @@
     @vite(['resources/js/demo-theme.min.js'])
     @vite(['resources/css/custom.css','resources/js/app.js'])
 
+   
 
 </head>
 
@@ -79,9 +80,9 @@
 
     @vite(['resources/js/tabler.min.js', 'resources/js/demo.min.js'])
 
-
     @yield('scripts')
     @stack('scripts')
+    
 </body>
 
 </html>

@@ -39,7 +39,7 @@
 
         </div>
 
-        @push('scripts')
+        {{-- @push('scripts')
         @vite(['resources/css/choices.min.css','resources/libs/choices.min.js'])
 
         <script>
@@ -53,6 +53,9 @@
             })
 
         </script>
-        @endpush
+        @endpush --}}
+
+       
+
     </x-innerpage-layout>
 </div>
