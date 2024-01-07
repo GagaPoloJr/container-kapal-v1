@@ -21,8 +21,8 @@ class ResiUpdate extends Component
     public $value_id, $modelValue;
     public $itemId;
     protected $listeners = ['selectOption'];
-
     public $deletedItems = [];
+    public $deletedContainer = [];
 
     protected $validationAttributes = [
         'trip_tujuan' => 'Trip ke berapa',
@@ -86,15 +86,18 @@ class ResiUpdate extends Component
         $this->loadBarangFields();
 
 
-        // dd($this);
     }
 
     public function render()
     {
-        // $this->dispatch('selectOption', ['field' => $this->selectedItem, 'value' => $this->selectedItem]);
-
         return view('livewire.resi.resi-update');
     }
+
+
+    /**
+     * to load container fields data in the container based on id resi
+     * @return void 
+     */
 
     public function loadFormFields()
     {
@@ -103,8 +106,9 @@ class ResiUpdate extends Component
 
         foreach ($containers as $container) {
             $this->formFields[] = [
-                'id' => $container->id,
+                'id' => uniqid(),
                 'attributes' => [
+                    'id' => $container->id,
                     'no_container' => $container->no_container,
                     'no_seal' => $container->no_seal,
                     'asal_barang' => $container->asal_barang,
@@ -114,11 +118,16 @@ class ResiUpdate extends Component
         }
     }
 
+    /**
+     * to load barang fields data in the container based on id container
+     * @return void 
+     */
+
     public function loadBarangFields()
     {
         // Load barangFields data based on $this->resi_id
         foreach ($this->formFields as $formField) {
-            $items = Item::where('container_id', $formField['id'])->get();
+            $items = Item::where('container_id', $formField['attributes']['id'])->get();
 
             $this->barangFields[$formField['id']] = [];
 
@@ -141,6 +150,14 @@ class ResiUpdate extends Component
         }
     }
 
+    /**
+     * calcualte jumlah kubikasi in the item container
+     * 
+     * @param string $formField   id base on the container
+     * @param int    $index       The index of the field to added.
+     *
+     * @return void 
+     */
     public function calculateJumlahKubikasi($formFieldId, $index)
     {
         // Check if the array and the keys exist before accessing them
@@ -148,21 +165,28 @@ class ResiUpdate extends Component
             isset($this->barangFields[$formFieldId][$index]['attributes']['p']) &&
             isset($this->barangFields[$formFieldId][$index]['attributes']['l']) &&
             isset($this->barangFields[$formFieldId][$index]['attributes']['t'])
+            &&
+            isset($this->barangFields[$formFieldId][$index]['attributes']['jml_barang'])
         ) {
-            $p = $this->barangFields[$formFieldId][$index]['attributes']['p'];
-            $l = $this->barangFields[$formFieldId][$index]['attributes']['l'];
-            $t = $this->barangFields[$formFieldId][$index]['attributes']['t'];
+            // Convert values to float to ensure numeric calculations
+            $p = (float) $this->barangFields[$formFieldId][$index]['attributes']['p'];
+            $l = (float) $this->barangFields[$formFieldId][$index]['attributes']['l'];
+            $t = (float) $this->barangFields[$formFieldId][$index]['attributes']['t'];
+            $jml_barang = (float) $this->barangFields[$formFieldId][$index]['attributes']['jml_barang'];
 
-            // Calculate jumlah_kubikasi based on p, l, and t
-            $jumlahKubikasi = $p * $l * $t;
+            // Check if conversion is successful before performing calculations
+            if (!is_nan($p) && !is_nan($l) && !is_nan($t) && !is_nan($jml_barang)) {
+                // Calculate jumlah_kubikasi based on p, l, and t
+                $jumlahKubikasi = ($jml_barang * $p * $l * $t) / 1000;
 
-            // Update the value in the Livewire data array
-            $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = $jumlahKubikasi;
+                // Update the value in the Livewire data array
+                $this->barangFields[$formFieldId][$index]['attributes']['jumlah_kubikasi'] = round($jumlahKubikasi);
+            }
         }
     }
-
     public function update()
     {
+
         $this->validate([
             'no_resi' => 'required',
             'nama_penerima' => 'required',
@@ -179,15 +203,13 @@ class ResiUpdate extends Component
             'barangFields.*.*.attributes.nama_barang' => 'required',
             'barangFields.*.*.attributes.jml_barang' => 'required|numeric',
             'barangFields.*.*.attributes.satuan_barang' => 'required',
-            // 'barangFields.*.*.attributes.kg' => 'required',
             'barangFields.*.*.attributes.p' => 'required|numeric',
             'barangFields.*.*.attributes.l' => 'required|numeric',
             'barangFields.*.*.attributes.t' => 'required|numeric',
             'barangFields.*.*.attributes.jumlah_kubikasi' => 'required|numeric',
-            // Add more fields as needed
         ]);
         try {
-
+            \DB::beginTransaction();
 
             $resi_data = [
                 'no_resi' => $this->no_resi,
@@ -215,7 +237,6 @@ class ResiUpdate extends Component
                 );
 
                 if (isset($this->barangFields[$formField['id']])) {
-                    // dd($this->barangFields[$formField['id']]);
                     foreach ($this->barangFields[$formField['id']] as $index => $barangField) {
                         $p = $barangField['attributes']['p'];
                         $l = $barangField['attributes']['l'];
@@ -226,16 +247,11 @@ class ResiUpdate extends Component
                         // Increment the total
                         $totalJumlahKubikasi += $jumlah_kubikasi;
 
-                        if(!empty($this->deletedItems)){
-                          
-                            $itemDelete = Item::findOrFail(optional($this->deletedItems[$index]['attributes']['id']));
-                            // dd($itemDelete);
-                            $itemDelete->delete();
 
-                        }
-                       
-                       
-                         
+                        // delete the existance data if match with the column
+                        $this->deletedField($this->deletedContainer, $index, 'container');
+                        $this->deletedField($this->deletedItems, $index, 'item');
+
                         Item::updateOrCreate(
                             [
                                 'id' => optional($barangField['attributes'])['id'],
@@ -252,35 +268,36 @@ class ResiUpdate extends Component
                                 'jumlah_kubikasi' => $barangField['attributes']['jumlah_kubikasi'],
                             ]
                         );
-
-                        // dd($this->barangFields);
                     }
                 }
             }
-
             // Update the jumlah_kubikasi for the ResiModel
             $resi = ResiModel::updateOrCreate(['id' => $resiId], [
                 'jumlah_kubikasi' => $totalJumlahKubikasi
             ]);
 
-            
+            \DB::commit();
             $this->dispatch('notify', title: 'success', message: 'Data Resi berhasil diupdate');
-            session()->flash('message', 'Data Resi berhasil ditambahkan');
+            session()->flash('message', 'Data Resi berhasil Diupdate');
             return redirect('/resi');
         } catch (ValidationException $e) {
             // Handle validation errors
+            \DB::rollBack();
             $this->dispatch('notify', title: 'error', message: 'An error occured. Please check all fields.');
             // You can access validation error messages using $e->errors()
         } catch (QueryException $e) {
             // Handle database query errors
+            \DB::rollBack();
             // You can log the error or perform other actions
             $this->dispatch('notify', title: 'error', message: $e . 'An error occurred while saving the data.');
         }
     }
 
-    // Other methods for adding/removing fields can be similar to the ResiPost component
-
-
+    /**
+     * add container field dynamic
+     * 
+     * @return  void
+     */
     public function addFormField()
     {
         $formFieldId = uniqid();
@@ -294,23 +311,31 @@ class ResiUpdate extends Component
 
             ],
         ];
-
-        $this->barangFields[$formFieldId] = []; // Initialize an empty array for barangFields
+        $this->barangFields[$formFieldId] = []; //intial empty array for barang
     }
 
+    /**
+     * add barang field dynamic
+     * @param string $formField id
+     * 
+     * @return  void
+     */
     public function addBarangField($formFieldId)
     {
         $this->barangFields[$formFieldId][] = ['id' => uniqid()];
     }
 
 
-
-
-
-
+    /**
+     * removeFormField checking formFieldId
+     * 
+     * @param string  $formFieldId the index of the container
+     *
+     * @return void
+     */
     public function removeFormField($formFieldId)
     {
-        // Check if the form field with the specified id exists in formFields
+
         foreach ($this->formFields as $index => $formField) {
             // Check if the formField array has an 'id' key and if it matches the formFieldId
             if (isset($formField['id']) && $formField['id'] === $formFieldId) {
@@ -318,14 +343,13 @@ class ResiUpdate extends Component
                 if (isset($this->barangFields[$formFieldId])) {
                     // Find the key of the barangFieldId in the associated barangFields array
                     $key = array_search($formFieldId, array_column($this->barangFields[$formFieldId], 'id'));
-
                     // Check if the key is found and unset the associated barangFields entry
                     if ($key !== false) {
                         unset($this->barangFields[$formFieldId][$key]);
                     }
                 }
 
-                // Remove the form field at the found index
+                $this->deletedContainer[] = $this->formFields[$index];
                 unset($this->formFields[$index]);
                 unset($this->barangFields[$formFieldId]);
                 $this->resetErrorBag();
@@ -335,6 +359,14 @@ class ResiUpdate extends Component
         }
     }
 
+    /**
+     * remove field barang by checking formFieldId and barangFieldId
+     * 
+     * @param string  $formFieldId the index of the container
+     * @param string $barangFieldId the index of item id
+     * 
+     * @return void
+     */
 
     public function removeBarangField($formFieldId, $barangFieldId)
     {
@@ -345,7 +377,7 @@ class ResiUpdate extends Component
 
             if ($key !== false) {
                 // Remove the element at the specified key
-                $this->deletedItems[] =$this->barangFields[$formFieldId][$key];
+                $this->deletedItems[] = $this->barangFields[$formFieldId][$key];
                 unset($this->barangFields[$formFieldId][$key]);
                 $this->resetErrorBag();
 
@@ -354,7 +386,40 @@ class ResiUpdate extends Component
             }
         }
 
-      
+
     }
 
+
+
+    /**
+     * Delete a field based on its ID.
+     *
+     * @param array  $field       The array containing the fields.
+     * @param int    $index       The index of the field to be deleted.
+     * @param string $fieldName   The name of the field ('container' or 'item').
+     *
+     * @return void
+     */
+    public function deletedField($field, $index, $fieldName)
+    {
+        if (!empty($field)) {
+            // Get the ID of the field to be deleted
+            $deleteItemId = $field[$index]['attributes']['id'];
+
+            if ($fieldName == 'container') {
+                $itemExists = Container::where('id', $deleteItemId)->exists();
+            } else {
+                $itemExists = Item::where('id', $deleteItemId)->exists();
+            }
+
+            if ($itemExists) {
+                // Determine the model class based on the field name
+                $modelClass = ($fieldName == 'container') ? Container::class : Item::class;
+                // Find the item by ID
+                $deleteItem = $modelClass::findOrFail($deleteItemId);
+                // Delete the item
+                $deleteItem->delete();
+            }
+        }
+    }
 }
