@@ -91,10 +91,10 @@ use Carbon\Carbon;
                                 <td>{{ $items->nama_barang }}</td>
                                 <td>{{ $container->no_container }}</td>
                                 <td>{{ $container->no_seal }}</td>
-                                <td>{{ round($items->kg,2) }}</td>
-                                <td>{{ round($items->p,2) }}</td>
-                                <td>{{ round($items->l,2) }}</td>
-                                <td>{{ round($items->t,2) }}</td>
+                                <td>{{ $items->kg }}</td>
+                                <td>{{ $items->p }}</td>
+                                <td>{{ $items->l }}</td>
+                                <td>{{ $items->t }}</td>
                                 <td class="font-weight-bold text-end">{{ round($items->jumlah_kubikasi) }}</td>
                                 @endif
                                 @endforeach
@@ -119,7 +119,7 @@ use Carbon\Carbon;
                                 <td>{{ $items->p }}</td>
                                 <td>{{ $items->l }}</td>
                                 <td>{{ $items->t }}</td>
-                                <td class="font-weight-bold text-end">{{ $items->jumlah_kubikasi }}</td>
+                                <td class="font-weight-bold text-end">{{ round($items->jumlah_kubikasi,2) }}</td>
                             </tr>
                             @endif
                             @endforeach
@@ -128,7 +128,7 @@ use Carbon\Carbon;
 
                             <tr>
                                 <td colspan="11" class="font-weight-bold text-uppercase text-end">Total</td>
-                                <td class="font-weight-bold text-end">{{ round($resi->jumlah_kubikasi)  }}</td>
+                                <td class="font-weight-bold text-end">{{ round($resi->total_kubikasi)  }}</td>
                             </tr>
                         </table>
                         <p class="text-muted mt-5">Demikian Kami harap diterima dengan baik/cukup dan tidak lupa kami mengucapkan terimakasih atas kerjasamanya.</p>

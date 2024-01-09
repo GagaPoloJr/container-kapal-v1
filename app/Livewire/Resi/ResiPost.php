@@ -244,7 +244,7 @@ class ResiPost extends Component
             }
 
             $resi = ResiModel::updateOrCreate(['id' => $resiId], [
-                'jumlah_kubikasi' => $totalJumlahKubikasi
+                'total_kubikasi' => $totalJumlahKubikasi
             ]);
             $this->dispatch('notify', title: 'success', message: 'Data Resi berhasil ditambahkan');
             session()->flash('message', 'Data Resi berhasil ditambahkan');

@@ -22,11 +22,11 @@ return new class extends Migration
             $table->integer('jml_barang')->nullable();
             $table->string('satuan_barang')->nullable();
             $table->string('nama_barang')->nullable();
-            $table->decimal('kg', 10, 5)->nullable(); // 10 total digits with 5 decimal places
-            $table->decimal('p', 10, 5)->nullable();
-            $table->decimal('l', 10, 5)->nullable();
-            $table->decimal('t', 10, 5)->nullable();
-            $table->decimal('jumlah_kubikasi', 10, 5)->nullable();
+            $table->decimal('kg', 10, 2)->nullable(); // 10 total digits with 2 decimal places
+            $table->decimal('p', 10, 2)->nullable();
+            $table->decimal('l', 10, 2)->nullable();
+            $table->decimal('t', 10, 2)->nullable();
+            $table->decimal('jumlah_kubikasi', 20, 2)->nullable();
             $table->timestamps();
         });
     }

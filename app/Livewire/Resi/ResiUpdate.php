@@ -273,7 +273,7 @@ class ResiUpdate extends Component
             }
             // Update the jumlah_kubikasi for the ResiModel
             $resi = ResiModel::updateOrCreate(['id' => $resiId], [
-                'jumlah_kubikasi' => $totalJumlahKubikasi
+                'total_kubikasi' => $totalJumlahKubikasi
             ]);
 
             \DB::commit();
