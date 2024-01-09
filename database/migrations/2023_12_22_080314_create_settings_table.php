@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('npwp');
             $table->string('ttd_resi');
             $table->string('ttd_kwitansi');
+            $table->string('ttd_nama_resi');
+            $table->string('ttd_nama_kwitansi');
             $table->string('no_rek_1');
             $table->string('no_rek_2');
             $table->timestamps();

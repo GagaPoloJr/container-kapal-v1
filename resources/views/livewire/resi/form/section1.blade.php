@@ -7,9 +7,6 @@
             <x-form-input name="no_resi" id="no_resi" type="text" class="mt-1  block w-full" wire:model="no_resi" autocomplete="no_resi" />
             <x-form-input-error for="no_resi" class="mt-2" />
         </div>
-
-
-
         <!-- kode perusahaan -->
         <div class="col-12 col-md-6 mt-2 position-relative">
             <x-form-label required='true' for="nama_penerima" label="{{ __('Nama Penerima') }}" />
@@ -42,8 +39,6 @@
             <x-form-input name="kota_tujuan" id="kota_tujuan" type="text" class="mt-1  block w-full" wire:model="kota_tujuan" autocomplete="kota_tujuan" />
             <x-form-input-error for="kota_tujuan" class="mt-2" />
         </div>
-
-
         <!-- divider -->
         <div class="col-12 my-5">
             <hr>
@@ -54,12 +49,6 @@
             <x-form-input name="tgl_berangkat" id="tgl_berangkat" type="date" class="mt-1  block w-full" wire:model="tgl_berangkat" autocomplete="tgl_berangkat" />
             <x-form-input-error for="tgl_berangkat" class="mt-2" />
         </div>
-        <!-- Name -->
-        {{-- <div class="col-12 col-md-6">
-            <x-form-label required='true' for="tgl_serah_barang" label="{{ __('Tanggal Serah Barang') }}" />
-            <x-form-input name="tgl_serah_barang" id="tgl_serah_barang" type="date" class="mt-1  block w-full" wire:model="tgl_serah_barang" autocomplete="tgl_serah_barang" />
-            <x-form-input-error for="tgl_serah_barang" class="mt-2" />
-        </div> --}}
         <div class="col-12 col-md-6">
             <x-form-label required='true' for="tipe_muatan" label="{{ __('Tipe Muatan') }}" />
             <select wire:model="tipe_muatan" id="tipe_muatan" wire:change="validateTipeMuatan" class="form-control form-select">

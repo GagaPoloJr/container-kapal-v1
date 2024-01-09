@@ -6,7 +6,7 @@
 
 <div>
     <input hidden type="text" wire:model="{{ $modelValue }}" name="{{ $modelValue }}" value="{{ $value_id }}">
-    <button wire:click="toggleDropdown" style="width:100%;text-align:left;z-index:51" type="button" {!! $attributes->merge(['class' => 'btn btn-outline-secondary d-block position-relative btn-search']) !!}>
+    <button wire:click="toggleDropdown" style="width:100%;text-align:left;z-index:51;padding-bottom:5px;padding-top:5px;" type="button" {!! $attributes->merge(['class' => 'btn btn-outline-secondary d-block position-relative btn-search']) !!}>
         <span class="d-flex justify-content-between  align-items-center">
             {{ $value_id ? collect($searchOptions)->firstWhere('id', $value_id)['nama'] : $placeholder }}
 

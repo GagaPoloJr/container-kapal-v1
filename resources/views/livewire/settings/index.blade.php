@@ -139,6 +139,20 @@
 
                     </x-slot>
                     <x-slot name="form">
+
+                        <!-- kode perusahaan -->
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-form-label for="ttd_nama_resi" label="{{ __('Kode Perusahaan') }}" />
+                            <x-form-input name="a" id="ttd_nama_resi" type="text" class="mt-1 block w-full" wire:model="state.ttd_nama_resi" autocomplete="ttd_nama_resi" />
+                            <x-form-input-error for="state.ttd_nama_resi" class="mt-2" />
+                        </div>
+
+                        <!-- kode perusahaan -->
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-form-label for="ttd_nama_kwitansi" label="{{ __('Kode Perusahaan') }}" />
+                            <x-form-input name="a" id="ttd_nama_kwitansi" type="text" class="mt-1 block w-full" wire:model="state.ttd_nama_kwitansi" autocomplete="ttd_nama_kwitansi" />
+                            <x-form-input-error for="state.ttd_nama_kwitansi" class="mt-2" />
+                        </div>
                         <!-- Name -->
                         <div x-data="{ photoPreview: null }" x-init="
                             $watch('photoPreview', value => {
@@ -171,7 +185,7 @@
                             <x-form-input-error for="state.ttd_resi" class="mt-2" />
 
                             @if ($state['ttd_resi'])
-                            <div class="mt-2">
+                            <div class="mt-2" x-show="! photoPreview">
                                 <img src="{{ asset('storage/'.$state['ttd_resi']) }}" alt="TTD Resi" class="max-w-full h-auto" />
                             </div>
                             @endif

@@ -13,6 +13,24 @@ class Settings extends Component
     public $createAccountError;
     public $typeSubmit;
     use WithFileUploads;
+
+
+    protected $validationAttributes = [
+        'state.nama_perusahaan' =>"Nama Perusahaan",
+        'state.kode_perusahaan' =>"Kode Perusahaan",
+        'state.lini_bisnis' =>"Lini Bisnis",
+        'state.email' =>"Email",
+        'state.phone' =>"Phone",
+        'state.fax' =>"Fax",
+        'state.alamat' =>"Alamat",
+        'state.npwp' =>"NPWP",
+        'state.ttd_resi' =>"Ttd Resi",
+        'state.ttd_kwitansi' =>"Ttd Kwitansi",
+        'state.ttd_nama_resi' =>"Ttd Nama Resi",
+        'state.ttd_nama_kwitansi' =>"Ttd Nama Kwitansi",
+        'state.no_rek_1' =>"No rekening 1",
+        'state.no_rek_2' =>"No rekening 2",
+    ];
     public function mount()
     {
         $setting = Setting::findOrFail(1);
@@ -28,6 +46,8 @@ class Settings extends Component
             'npwp' => $setting->npwp,
             'ttd_resi' => $setting->ttd_resi,
             'ttd_kwitansi' => $setting->ttd_kwitansi,
+            'ttd_nama_resi' => $setting->ttd_nama_resi,
+            'ttd_nama_kwitansi' => $setting->ttd_nama_kwitansi,
             'no_rek_1' => $setting->no_rek_1,
             'no_rek_2' => $setting->no_rek_2,
         ];
@@ -53,7 +73,10 @@ class Settings extends Component
     public function validateSignInformation()
     {
         return $this->validate([
+            'state.ttd_nama_resi' => 'required|max:50',
+            'state.ttd_nama_kwitansi' => 'required|max:50',
             'state.ttd_kwitansi' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+            'state.ttd_resi' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
     }
 
@@ -87,6 +110,7 @@ class Settings extends Component
             'npwp' => $this->state['npwp'],
             'no_rek_1' => $this->state['no_rek_1'],
             'no_rek_2' => $this->state['no_rek_2'],
+            
         ]);
         if ($update) {
             $this->dispatch('saved_bank');
@@ -102,8 +126,16 @@ class Settings extends Component
         $validatedData = $this->validateSignInformation();
         if ($this->state['ttd_kwitansi']) {
             $validatedData['state']['ttd_kwitansi'] = $this->state['ttd_kwitansi']->store('kwitansi', 'public');
+            $validatedData['state']['resi'] = $this->state['resi']->store('resi', 'public');
         }
+
+        Setting::where('id', 1)->update([
+            'ttd_nama_resi' => $this->state['ttd_nama_resi'],
+            'ttd_nama_kwitansi' => $this->state['ttd_nama_kwitansi'],
+        ]);
         $update = Setting::where('id', 1)->update($validatedData['state']);
+
+
         if ($update) {
             $this->dispatch('saved_sign'); // Trigger the "saved" event for a success message
             $this->dispatch('notify', title: 'success', message: 'Data tanda tangan berhasil di update');

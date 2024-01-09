@@ -36,6 +36,8 @@ class SettingFactory extends Factory
             'npwp' =>  'apaja',
             'ttd_resi'=> 'ttd',
             'ttd_kwitansi'=> 'ttd',
+            'ttd_nama_resi'=> 'ttd resi',
+            'ttd_nama_kwitansi'=> 'ttd kwitansi',
             'no_rek_1'=> 'ttd',
             'no_rek_2'=> 'ttd',
         ];

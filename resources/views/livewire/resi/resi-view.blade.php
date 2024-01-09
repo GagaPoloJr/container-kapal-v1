@@ -91,10 +91,10 @@ use Carbon\Carbon;
                                 <td>{{ $items->nama_barang }}</td>
                                 <td>{{ $container->no_container }}</td>
                                 <td>{{ $container->no_seal }}</td>
-                                <td>{{ $items->kg }}</td>
-                                <td>{{ number_format($items->p,2) }}</td>
-                                <td>{{ number_format($items->l,2) }}</td>
-                                <td>{{ number_format($items->t,2) }}</td>
+                                <td>{{ round($items->kg,2) }}</td>
+                                <td>{{ round($items->p,2) }}</td>
+                                <td>{{ round($items->l,2) }}</td>
+                                <td>{{ round($items->t,2) }}</td>
                                 <td class="font-weight-bold text-end">{{ round($items->jumlah_kubikasi) }}</td>
                                 @endif
                                 @endforeach

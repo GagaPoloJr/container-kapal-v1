@@ -113,6 +113,7 @@ return [
     | this behavior, you need to use @livewireStyles and @livewireScripts.
     |
     */
+    'asset_url' => null,
 
     'inject_assets' => true,
 

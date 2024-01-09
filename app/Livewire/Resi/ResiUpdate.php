@@ -139,11 +139,11 @@ class ResiUpdate extends Component
                         'nama_barang' => $item->nama_barang,
                         'jml_barang' => $item->jml_barang,
                         'satuan_barang' => $item->satuan_barang,
-                        'kg' => $item->kg,
-                        'p' => $item->p,
-                        'l' => $item->l,
-                        't' => $item->t,
-                        'jumlah_kubikasi' => $item->jumlah_kubikasi,
+                        'kg' =>round($item->kg,3),
+                        'p' => round($item->p,3),
+                        'l' => round($item->l,3),
+                        't' => round($item->t,3),
+                        'jumlah_kubikasi' => round($item->jumlah_kubikasi,3),
                     ],
                 ];
             }
@@ -261,7 +261,7 @@ class ResiUpdate extends Component
                                 'nama_barang' => $barangField['attributes']['nama_barang'],
                                 'jml_barang' => $barangField['attributes']['jml_barang'],
                                 'satuan_barang' => $barangField['attributes']['satuan_barang'],
-                                'kg' => $barangField['attributes']['kg'],
+                                'kg' => isset($barangField['attributes']['kg']) ? $barangField['attributes']['kg'] : 0,
                                 'p' => $barangField['attributes']['p'],
                                 'l' => $barangField['attributes']['l'],
                                 't' => $barangField['attributes']['t'],
@@ -402,7 +402,7 @@ class ResiUpdate extends Component
      */
     public function deletedField($field, $index, $fieldName)
     {
-        if (!empty($field)) {
+        if (!empty($field) && isset($field[$index]['attributes']['id'])) {
             // Get the ID of the field to be deleted
             $deleteItemId = $field[$index]['attributes']['id'];
 
